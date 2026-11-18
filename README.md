@@ -36,6 +36,16 @@ src/
   data/empresa.ts
 ```
 
+## Agenda online
+
+Seção "Escolha o seu horário" na Início (terceira seção, `src/components/Agenda.tsx`, regras em `src/lib/agenda.ts`).
+
+- Mostra só dias e horários de expediente (seg. a sex., 13h30–18h), sempre no horário de Brasília, mesmo para quem acessa de outro fuso.
+- Esconde feriados, fins de semana e horários de hoje que começam em menos de 2h.
+- Não há servidor: o pedido abre no WhatsApp e o consultório confirma. A agenda não sabe quais horários já estão ocupados.
+  Para bloquear horários ocupados automaticamente, é preciso integrar com um calendário (por exemplo Google Agenda ou Cal.com).
+- Tudo configurável em `empresa.agenda` (dias, horários, intervalo, antecedência, semanas exibidas, feriados).
+
 ## Pendências [CONFIRMAR]
 
 Procure `CONFIRMAR` no projeto para encontrar todas. Principais:
@@ -49,4 +59,5 @@ Procure `CONFIRMAR` no projeto para encontrar todas. Principais:
 7. Coordenadas (lat/lng) para o JSON-LD.
 8. Domínio definitivo.
 9. Foto do consultório (espaço reservado na página Sobre).
-10. Frase de destaque na página Sobre: aprovar com o Dr. Lázaro ou trocar por uma dele.
+10. Agenda online: duração de cada consulta (hoje, horários de 30 em 30 min), feriados municipais, recesso e férias (`empresa.agenda` em `src/data/empresa.ts`).
+11. Frase de destaque na página Sobre: aprovar com o Dr. Lázaro ou trocar por uma dele.

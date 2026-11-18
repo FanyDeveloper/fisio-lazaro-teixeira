@@ -55,6 +55,38 @@ export const empresa = {
     'Resultados desde a primeira consulta',
   ],
 
+  /**
+   * Agenda online (seção "Agende um horário" na Início).
+   * Gera os horários livres só dentro do expediente, no fuso de Brasília.
+   * Sem integração com calendário, o pedido é enviado pelo WhatsApp e o consultório confirma.
+   */
+  agenda: {
+    fuso: 'America/Sao_Paulo',
+    diasSemana: [1, 2, 3, 4, 5], // 0 = domingo … 6 = sábado
+    inicio: '13:30',
+    fim: '18:00',
+    intervaloMin: 30, // [CONFIRMAR: duração de cada consulta (30, 45 ou 60 min)]
+    antecedenciaMin: 120, // não oferece horários que comecem em menos de 2h
+    semanas: 3, // quantas semanas à frente aparecem
+    // Feriados nacionais (sem atendimento). [CONFIRMAR: feriados municipais, recesso de fim de ano e férias]
+    feriados: [
+      '2026-11-20', // Consciência Negra
+      '2026-12-25', // Natal
+      '2027-01-01', // Confraternização Universal
+      '2027-02-08', // Carnaval
+      '2027-02-09', // Carnaval
+      '2027-03-26', // Sexta-feira Santa
+      '2027-04-21', // Tiradentes
+      '2027-05-27', // Corpus Christi
+      '2027-07-20', // Aniversário de Balneário Camboriú
+      '2027-09-07', // Independência
+      '2027-10-12', // Nossa Senhora Aparecida
+      '2027-11-02', // Finados
+      '2027-11-15', // Proclamação da República
+      '2027-12-25', // Natal
+    ],
+  },
+
   anosDeAtuacao: '[CONFIRMAR: ano de formação ou anos de atuação]',
   formacao: '[CONFIRMAR: graduação, especializações e cursos do Dr. Lázaro]',
   estacionamento: '[CONFIRMAR: há estacionamento próprio ou conveniado perto?]',

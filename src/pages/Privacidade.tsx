@@ -36,6 +36,10 @@ export default function Privacidade() {
               pronto, e você decide se envia ou não.
             </p>
             <p>
+              <strong>Agenda online:</strong> nome, tipo de atendimento e o dia e horário escolhidos. Assim como o formulário, a agenda
+              não grava nada no site: ela só monta a mensagem e abre o WhatsApp para você enviar o pedido.
+            </p>
+            <p>
               <strong>Conversa pelo WhatsApp:</strong> as mensagens trocadas ficam no WhatsApp do consultório e no seu, sujeitas também à
               política de privacidade do WhatsApp (Meta).
             </p>

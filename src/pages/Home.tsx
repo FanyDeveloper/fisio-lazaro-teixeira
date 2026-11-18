@@ -22,6 +22,7 @@ import LabyrinthLine from '../components/LabyrinthLine'
 import Reviews from '../components/Reviews'
 import MapEmbed from '../components/MapEmbed'
 import FinalCTA from '../components/FinalCTA'
+import Agenda from '../components/Agenda'
 import Stars from '../components/Stars'
 import { WaIcon } from '../components/Header'
 
@@ -202,6 +203,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* AGENDA ONLINE */}
+      <Agenda />
 
       {/* SERVIÇOS */}
       <section aria-labelledby="servicos-titulo" className="grain bg-pine py-24 text-bone md:py-36">
