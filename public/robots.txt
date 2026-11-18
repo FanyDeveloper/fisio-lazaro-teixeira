@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# [CONFIRMAR: domínio definitivo]
+Sitemap: https://www.drlazaroteixeira.com.br/sitemap.xml

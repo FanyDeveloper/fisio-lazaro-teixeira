@@ -1,0 +1,52 @@
+# Site — Consultório de Fisioterapia Dr. Lázaro Juliano Teixeira
+
+React + Vite + TypeScript + Tailwind CSS v4 · React Router · GSAP + ScrollTrigger (`@gsap/react`) · Lenis · Lucide.
+
+## Rodar
+
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # gera /dist (checa tipos antes)
+npm run preview   # serve o build
+```
+
+Publicação: o projeto já traz `vercel.json` (Vercel) e `public/_redirects` (Netlify), para as rotas do React Router funcionarem ao recarregar a página.
+
+## Onde editar
+
+- **Todos os dados do consultório:** `src/data/empresa.ts` (contatos, horários, serviços, avaliações, perguntas frequentes).
+- **Domínio:** `empresa.ts`, `index.html`, `public/robots.txt` e `public/sitemap.xml`.
+- **Cores e fontes:** bloco `@theme` em `src/index.css`.
+- **Fotos:** `public/images/`. Todas recebem o mesmo tratamento de cor (`.photo-grade`).
+
+## Estrutura
+
+```
+src/
+  pages/                 Início, Sobre, Serviços, Serviço (dinâmica), Dúvidas, Contato, Privacidade, 404
+  components/            Header, Footer, Layout, Reviews, ContactForm, MapEmbed, RevealImage…
+  components/reactbits/  SplitText, RotatingText, CountUp, ScrollReveal, SpotlightCard, MagicBento,
+                         ScrollStack, Magnet, ClickSpark, LogoLoop, StaggeredMenu, Noise
+                         (recriados em React + GSAP, com o mesmo comportamento dos originais)
+  components/ui/         ButtonPrimary, ButtonSecondary, FloatingField, Checkbox, Loader, Accordion
+                         (micro-interações no estilo Uiverse, nas cores da marca)
+  hooks/                 useLenis, useSEO
+  lib/                   gsap (registro único dos plugins), whatsapp, jsonld
+  data/empresa.ts
+```
+
+## Pendências [CONFIRMAR]
+
+Procure `CONFIRMAR` no projeto para encontrar todas. Principais:
+
+1. Lista de serviços: deduzida das fotos (jaleco "Fisioterapeuta Neurofuncional" e o modelo do labirinto). Validar.
+2. Número do CREFITO, formação e anos de atuação.
+3. Valor da consulta, convênios, formas de pagamento, duração da primeira consulta.
+4. Estacionamento, ponto de referência, sala/andar, acessibilidade.
+5. Atendimento domiciliar? Relatório escrito da avaliação? Média de sessões? Nomes dos equipamentos?
+6. E-mail, Instagram, CPF/CNPJ (Política de Privacidade) e prazo de retenção dos dados.
+7. Coordenadas (lat/lng) para o JSON-LD.
+8. Domínio definitivo.
+9. Foto do consultório (espaço reservado na página Sobre).
+10. Frase de destaque na página Sobre: aprovar com o Dr. Lázaro ou trocar por uma dele.

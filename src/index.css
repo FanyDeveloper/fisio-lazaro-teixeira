@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+/*
+  Direção de arte: "Equilíbrio"
+  Grafite-pinho do jaleco + âmbar do modelo de labirinto + papel quente.
+*/
+@theme {
+  --color-bone: #f4f1ec;
+  --color-paper: #fbf9f5;
+  --color-sand: #e6dfd3;
+  --color-line: #d6cdbf;
+  --color-ink: #1a1d1e;
+  --color-mist: #55605f;
+  --color-pine: #1f3a3d;
+  --color-pine-deep: #142729;
+  --color-amber: #c08a3e;
+  --color-amber-ink: #8a5a1c;
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  body {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-pine);
+    color: var(--color-bone);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-amber-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+  /* Tratamento de cor único para todas as fotos */
+  .photo-grade {
+    filter: saturate(0.88) contrast(1.03) sepia(0.07) brightness(1.01);
+  }
+  /* Ruído sutil sobre fundos */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .grain-dark::after {
+    mix-blend-mode: screen;
+    opacity: 0.25;
+  }
+  .rule {
+    height: 1px;
+    background: var(--color-line);
+  }
+  .mask-line {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
