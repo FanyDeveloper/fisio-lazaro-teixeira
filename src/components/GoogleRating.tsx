@@ -17,7 +17,7 @@ export default function GoogleRating({ tone = 'ink', compact }: { tone?: 'ink' |
   return (
     <div className="flex items-end gap-6">
       <div>
-        <p className={`font-display text-[4.5rem] leading-none md:text-[6rem] ${tone === 'ink' ? 'text-pine' : 'text-bone'}`}>
+        <p className={`font-display text-[4.5rem] leading-none md:text-[6rem] ${tone === 'ink' ? 'text-navy' : 'text-bone'}`}>
           <CountUp to={empresa.google.nota} decimals={1} />
         </p>
         <Stars className="mt-3" />

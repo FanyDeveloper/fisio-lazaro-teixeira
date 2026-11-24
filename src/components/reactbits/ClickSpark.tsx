@@ -4,7 +4,7 @@ import { gsap, prefersReducedMotion } from '../../lib/gsap'
 
 type Props = { children: ReactNode; color?: string; count?: number; radius?: number; className?: string }
 
-export default function ClickSpark({ children, color = '#C08A3E', count = 8, radius = 22, className = '' }: Props) {
+export default function ClickSpark({ children, color = '#8DBBE0', count = 8, radius = 22, className = '' }: Props) {
   const ref = useRef<HTMLSpanElement>(null)
   const spark = (e: MouseEvent) => {
     const host = ref.current

@@ -6,12 +6,12 @@ import { useRef, type ReactNode } from 'react'
 import { gsap, useGSAP, prefersReducedMotion } from '../../lib/gsap'
 import SpotlightCard from './SpotlightCard'
 
-export type BentoItem = { title: string; text: string; className?: string; tone?: 'paper' | 'pine' | 'sand'; extra?: ReactNode }
+export type BentoItem = { title: string; text: string; className?: string; tone?: 'paper' | 'navy' | 'sand'; extra?: ReactNode }
 
 const tones = {
   paper: 'bg-paper text-ink border border-line/70',
   sand: 'bg-sand text-ink',
-  pine: 'bg-pine text-bone',
+  navy: 'bg-navy text-bone',
 }
 
 export default function MagicBento({ items }: { items: BentoItem[] }) {
@@ -37,13 +37,13 @@ export default function MagicBento({ items }: { items: BentoItem[] }) {
         <div data-bento key={it.title} className={it.className}>
           <SpotlightCard
             className={`h-full rounded-[22px] p-7 md:p-9 ${tones[it.tone ?? 'paper']}`}
-            color={it.tone === 'pine' ? 'rgba(192,138,62,0.22)' : undefined}
+            color={it.tone === 'navy' ? 'rgba(141,187,224,0.22)' : undefined}
           >
             <div className="flex h-full flex-col justify-between gap-10">
               {it.extra}
               <div>
                 <h3 className="font-display text-2xl md:text-[1.75rem]">{it.title}</h3>
-                <p className={`mt-3 max-w-md text-[1rem] ${it.tone === 'pine' ? 'text-bone/75' : 'text-mist'}`}>{it.text}</p>
+                <p className={`mt-3 max-w-md text-[1rem] ${it.tone === 'navy' ? 'text-bone/75' : 'text-mist'}`}>{it.text}</p>
               </div>
             </div>
           </SpotlightCard>

@@ -32,7 +32,7 @@ export default function ServicoDetalhe() {
       <PageHero
         kicker={
             <nav aria-label="Você está em">
-              <Link to="/servicos" className="hover:text-pine">Serviços</Link> <span aria-hidden>/</span> <span aria-current="page">{s.nome}</span>
+              <Link to="/servicos" className="hover:text-navy">Serviços</Link> <span aria-hidden>/</span> <span aria-current="page">{s.nome}</span>
             </nav>
         }
         title={s.nome}
@@ -49,7 +49,7 @@ export default function ServicoDetalhe() {
       <section className="pb-24 md:pb-32">
         <div className="container-x grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <ScrollReveal as="p" text={s.beneficio} className="font-display text-[2rem] leading-[1.12] text-pine md:text-[2.8rem]" />
+            <ScrollReveal as="p" text={s.beneficio} className="font-display text-[2rem] leading-[1.12] text-navy md:text-[2.8rem]" />
           </div>
           <div className="space-y-6 text-[1.08rem] text-mist md:col-span-6 md:col-start-7">
             {s.descricao.map((p) => (
@@ -59,13 +59,13 @@ export default function ServicoDetalhe() {
         </div>
       </section>
 
-      <section aria-labelledby="paraquem" className="grain bg-sand py-24 md:py-32">
+      <section aria-labelledby="paraquem" className="bg-bone py-24 md:py-32">
         <div className="container-x grid gap-12 md:grid-cols-12">
           <SectionTitle id="paraquem" text="Para quem é" className="md:col-span-4" />
           <ul className="grid gap-x-10 md:col-span-8 md:grid-cols-2">
             {s.paraQuem.map((p) => (
-              <li key={p} className="flex gap-4 border-t border-pine/15 py-6 text-[1.1rem] text-ink">
-                <Check className="mt-1 shrink-0 text-amber-ink" size={20} strokeWidth={1.6} /> {p}
+              <li key={p} className="flex gap-4 border-t border-navy/15 py-6 text-[1.1rem] text-ink">
+                <Check className="mt-1 shrink-0 text-accent-ink" size={20} strokeWidth={1.6} /> {p}
               </li>
             ))}
           </ul>
@@ -83,7 +83,7 @@ export default function ServicoDetalhe() {
               items={s.comoFunciona.map((c, i) => ({
                 key: c.titulo,
                 content: (
-                  <article className={`rounded-[24px] p-8 shadow-[0_20px_45px_-30px_rgba(20,39,41,0.5)] md:p-10 ${i % 2 ? 'bg-pine text-bone' : 'border border-line bg-paper'}`}>
+                  <article className={`rounded-[24px] p-8 shadow-[0_20px_45px_-30px_rgba(7,31,61,0.5)] md:p-10 ${i % 2 ? 'bg-navy text-bone' : 'border border-line bg-paper'}`}>
                     <h3 className="font-display text-[1.7rem] md:text-[2.2rem]">{c.titulo}</h3>
                     <p className={`mt-4 max-w-lg ${i % 2 ? 'text-bone/75' : 'text-mist'}`}>{c.texto}</p>
                   </article>
@@ -100,14 +100,14 @@ export default function ServicoDetalhe() {
           <div className="md:col-span-8">
             <Accordion items={s.faq} />
             <p className="mt-6 text-mist">
-              Outras perguntas? Veja as <Link to="/perguntas-frequentes" className="text-pine underline underline-offset-2">dúvidas frequentes</Link>.
+              Outras perguntas? Veja as <Link to="/perguntas-frequentes" className="text-navy underline underline-offset-2">dúvidas frequentes</Link>.
             </p>
           </div>
         </div>
       </section>
 
       <section aria-labelledby="agendar-servico" className="px-3 pb-3">
-        <div className="grain grain-dark rounded-[28px] bg-pine px-6 py-20 text-bone md:px-16 md:py-24">
+        <div className="rounded-[28px] bg-navy-deep [--em:var(--color-accent)] px-6 py-20 text-bone md:px-16 md:py-24">
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-5">
               <SectionTitle id="agendar-servico" text="Vamos falar sobre o seu caso?" className="text-bone" />
@@ -126,7 +126,7 @@ export default function ServicoDetalhe() {
           <ul className="mt-8 grid gap-3 md:grid-cols-3">
             {outros.map((o) => (
               <li key={o.slug}>
-                <Link to={`/servicos/${o.slug}`} className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-paper p-6 transition-colors hover:border-pine">
+                <Link to={`/servicos/${o.slug}`} className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-paper p-6 transition-colors hover:border-navy">
                   <span className="font-display text-xl">{o.nome}</span>
                   <ArrowUpRight size={20} strokeWidth={1.5} className="transition-transform duration-500 group-hover:rotate-45" />
                 </Link>

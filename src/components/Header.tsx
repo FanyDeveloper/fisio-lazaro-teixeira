@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { ChevronDown } from 'lucide-react'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
-import { navLinks } from '../data/empresa'
+import { navDesktop } from '../data/empresa'
 import { waLink } from '../lib/whatsapp'
 import Logo from './Logo'
+import SmartLink from './SmartLink'
 import Magnet from './reactbits/Magnet'
 import StaggeredMenu from './reactbits/StaggeredMenu'
 
@@ -45,9 +47,9 @@ export default function Header() {
         paddingTop: s ? 10 : 22,
         paddingBottom: s ? 10 : 22,
         borderRadius: s ? 999 : 0,
-        backgroundColor: s ? 'rgba(251,249,245,0.72)' : 'rgba(251,249,245,0)',
-        borderColor: s ? 'rgba(31,58,61,0.12)' : 'rgba(31,58,61,0)',
-        boxShadow: s ? '0 18px 40px -22px rgba(20,39,41,0.35)' : '0 0px 0px 0px rgba(20,39,41,0)',
+        backgroundColor: s ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0)',
+        borderColor: s ? 'rgba(11,47,91,0.12)' : 'rgba(11,47,91,0)',
+        boxShadow: s ? '0 18px 40px -22px rgba(7,31,61,0.35)' : '0 0px 0px 0px rgba(7,31,61,0)',
       })
     }
     applyRef.current = apply
@@ -88,13 +90,69 @@ export default function Header() {
       ease: 'expo.out',
     })
   }, [])
-  const activeEl = () => nav.current?.querySelector<HTMLElement>('a[aria-current="page"]')?.parentElement ?? null
+  // Seção ativa (scroll spy na Início; página atual nas demais)
+  const [ativo, setAtivo] = useState<string | null>(null)
+  const ativoRef = useRef(ativo)
+  ativoRef.current = ativo
+  const activeEl = () => (ativoRef.current ? nav.current?.querySelector<HTMLElement>(`li[data-nav="${ativoRef.current}"]`) ?? null : null)
+
+  useEffect(() => {
+    const { pathname } = location
+    if (pathname !== '/') {
+      setAtivo(pathname.startsWith('/servicos') ? 'tratamentos' : pathname === '/sobre' ? 'sobre' : pathname === '/contato' ? 'contato' : null)
+      return
+    }
+    // seção da página → item do menu
+    const mapa: Record<string, string | null> = {
+      inicio: null, sobre: 'sobre', areas: 'areas', tecnologia: 'tecnologia', processo: 'tecnologia', envelhecimento: 'areas',
+      academico: 'academico', publicacoes: 'academico', depoimentos: 'sobre', contato: 'contato', agenda: 'contato',
+    }
+    let raf = 0
+    const calc = () => {
+      raf = 0
+      const linha = window.innerHeight * 0.4
+      let atual: string | null = null
+      for (const id of Object.keys(mapa)) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= linha) atual = mapa[id]
+      }
+      setAtivo(atual)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(calc)
+    }
+    const t = window.setTimeout(calc, 200)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.clearTimeout(t)
+      window.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [location])
 
   useLayoutEffect(() => {
-    const t = window.setTimeout(() => moveTo(activeEl(), true), 50)
+    moveTo(activeEl())
+  }, [ativo, moveTo])
+
+  useLayoutEffect(() => {
     setMenuOpen(false)
-    return () => window.clearTimeout(t)
-  }, [location.pathname, moveTo])
+    setGrupo(null)
+  }, [location.pathname, location.hash])
+
+  // Submenus do desktop
+  const [grupo, setGrupo] = useState<string | null>(null)
+  const abertoEm = useRef(0) // evita que o clique logo após o hover feche o submenu
+  useEffect(() => {
+    if (!grupo) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setGrupo(null)
+    const onDown = (e: PointerEvent) => !nav.current?.contains(e.target as Node) && setGrupo(null)
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('pointerdown', onDown)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pointerdown', onDown)
+    }
+  }, [grupo])
 
   useEffect(() => {
     const onResize = () => moveTo(activeEl(), true)
@@ -105,7 +163,7 @@ export default function Header() {
 
   // Com o menu aberto, a barra fica transparente sobre o fundo escuro
   useEffect(() => {
-    if (menuOpen) gsap.to(bar.current, { backgroundColor: 'rgba(251,249,245,0)', borderColor: 'rgba(31,58,61,0)', boxShadow: '0 0 0 0 rgba(0,0,0,0)', duration: 0.3 })
+    if (menuOpen) gsap.to(bar.current, { backgroundColor: 'rgba(255,255,255,0)', borderColor: 'rgba(11,47,91,0)', boxShadow: '0 0 0 0 rgba(0,0,0,0)', duration: 0.3 })
     else applyRef.current(scrolledRef.current)
   }, [menuOpen])
 
@@ -121,7 +179,7 @@ export default function Header() {
 
   return (
     <>
-      <a href="#conteudo" className="sr-only z-[60] rounded-full bg-pine px-4 py-2 text-bone focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+      <a href="#conteudo" className="sr-only z-[60] rounded-full bg-navy px-4 py-2 text-bone focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Pular para o conteúdo
       </a>
       <header ref={shell} className="fixed inset-x-0 top-0 z-50 px-3">
@@ -132,43 +190,81 @@ export default function Header() {
         >
           <Logo tone={menuOpen ? 'bone' : 'ink'} />
 
-          <nav aria-label="Principal" className="hidden lg:block">
-            <ul ref={nav} className="relative flex items-center gap-1" onMouseLeave={() => moveTo(activeEl())}>
-              <span ref={indicator} aria-hidden className="absolute left-0 top-0 h-full rounded-full bg-pine/[0.07] opacity-0" style={{ width: 0 }} />
-              {navLinks.map((l) => (
-                <li key={l.to} onMouseEnter={(e) => moveTo(e.currentTarget)}>
-                  <NavLink
-                    to={l.to}
-                    end={l.to === '/'}
-                    onFocus={(e) => moveTo(e.currentTarget.parentElement)}
-                    className={({ isActive }) =>
-                      `group relative block rounded-full px-4 py-2 text-[0.95rem] font-medium ${isActive ? 'text-pine' : 'text-ink/75 hover:text-pine'}`
-                    }
+          <nav aria-label="Principal" className="hidden xl:block">
+            <ul ref={nav} className="relative flex items-center gap-0.5" onMouseLeave={() => moveTo(activeEl())}>
+              <span ref={indicator} aria-hidden className="absolute left-0 top-0 h-full rounded-full bg-navy/[0.07] opacity-0" style={{ width: 0 }} />
+              {navDesktop.map((g) => {
+                const atual = ativo === g.id
+                const base = `group relative flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.92rem] font-medium transition-colors ${atual ? 'text-navy' : 'text-ink/75 hover:text-navy'}`
+                return (
+                  <li
+                    key={g.id}
+                    data-nav={g.id}
+                    className="relative"
+                    onMouseEnter={(e) => {
+                      moveTo(e.currentTarget)
+                      if (g.children) {
+                        abertoEm.current = Date.now()
+                        setGrupo(g.id)
+                      }
+                    }}
+                    onMouseLeave={() => g.children && setGrupo(null)}
                   >
-                    <span className="relative block overflow-hidden leading-[1.5rem]">
-                      <span className="block transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-full">{l.label}</span>
-                      <span aria-hidden className="absolute left-0 top-full block font-display italic transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-full">
-                        {l.label}
-                      </span>
-                    </span>
-                  </NavLink>
-                </li>
-              ))}
+                    {g.children ? (
+                      <>
+                        <button
+                          type="button"
+                          aria-expanded={grupo === g.id}
+                          aria-controls={`sub-${g.id}`}
+                          onClick={() => setGrupo((v) => (v === g.id && Date.now() - abertoEm.current > 500 ? null : g.id))}
+                          onFocus={(e) => moveTo(e.currentTarget.parentElement)}
+                          className={base}
+                        >
+                          {g.label}
+                          <ChevronDown size={15} strokeWidth={1.8} className={`transition-transform duration-300 ${grupo === g.id ? 'rotate-180' : ''}`} />
+                        </button>
+                        <div
+                          id={`sub-${g.id}`}
+                          className={`absolute left-0 top-full pt-3 transition-all duration-300 ${grupo === g.id ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-1 opacity-0'}`}
+                        >
+                          <ul className="min-w-[14rem] rounded-2xl border border-line bg-paper p-2 shadow-[0_24px_50px_-28px_rgba(7,31,61,0.45)]">
+                            {g.children.map((c) => (
+                              <li key={c.to}>
+                                <SmartLink
+                                  to={c.to}
+                                  onClick={() => setGrupo(null)}
+                                  className="block rounded-xl px-4 py-2.5 text-[0.92rem] text-ink/80 transition-colors hover:bg-bone hover:text-navy"
+                                >
+                                  {c.label}
+                                </SmartLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    ) : (
+                      <SmartLink to={g.to} aria-current={atual ? 'location' : undefined} onFocus={(e) => moveTo(e.currentTarget.parentElement)} className={base}>
+                        {g.label}
+                      </SmartLink>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 
           <div className="flex items-center gap-2">
             <span className="hidden sm:block">
-            <Magnet>
-              <a
-                href={waLink()}
-                target="_blank"
-                rel="noopener"
-                className="inline-flex items-center gap-2 rounded-full bg-pine px-5 py-3 text-[0.92rem] font-semibold text-bone transition-colors duration-300 hover:bg-pine-deep"
-              >
-                <WaIcon size={17} /> Agendar
-              </a>
-            </Magnet>
+              <Magnet>
+                <a
+                  href={waLink()}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-[0.92rem] font-semibold text-bone transition-colors duration-300 hover:bg-navy-deep"
+                >
+                  <WaIcon size={17} /> Agendar avaliação
+                </a>
+              </Magnet>
             </span>
             <button
               ref={burger}
@@ -177,7 +273,7 @@ export default function Header() {
               aria-expanded={menuOpen}
               aria-controls="menu-mobile"
               aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
-              className={`relative z-50 grid h-12 w-12 place-items-center rounded-full transition-colors lg:hidden ${menuOpen ? 'bg-bone text-pine' : 'bg-pine text-bone'}`}
+              className={`relative z-50 grid h-12 w-12 place-items-center rounded-full transition-colors xl:hidden ${menuOpen ? 'bg-bone text-navy' : 'bg-navy text-bone'}`}
             >
               <span className="flex flex-col gap-[6px]">
                 <span data-l className="block h-[1.5px] w-5 bg-current" />

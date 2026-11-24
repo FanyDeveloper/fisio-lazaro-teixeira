@@ -9,7 +9,6 @@ import SectionTitle from './SectionTitle'
 import ButtonPrimary from './ui/ButtonPrimary'
 import Checkbox from './ui/Checkbox'
 import { FloatingInput, FloatingSelect } from './ui/FloatingField'
-import Noise from './reactbits/Noise'
 import { WaIcon } from './Header'
 
 const cap = (t?: string) => (t ? t[0].toUpperCase() + t.slice(1) : '')
@@ -134,18 +133,17 @@ export default function Agenda() {
   const atual = semanas[semana] ?? []
 
   return (
-    <section ref={ref} id="agenda" aria-labelledby="agenda-titulo" className="relative scroll-mt-24 overflow-hidden bg-sand py-24 md:py-32">
-      <Noise opacity={0.3} />
+    <section ref={ref} id="agenda" aria-labelledby="agenda-titulo" className="relative scroll-mt-24 overflow-hidden bg-bone py-24 md:py-32">
       <div className="container-x relative grid gap-12 md:grid-cols-12 md:gap-10">
         <div className="md:col-span-4">
-          <SectionTitle id="agenda-titulo" text="Escolha o seu *horário*" />
+          <SectionTitle id="agenda-titulo" text="Prefere escolher o *horário*?" />
           <p className="mt-6 max-w-sm text-mist">
             Veja os horários de atendimento das próximas semanas, escolha o que fica melhor para você e envie o pedido. O consultório
             confirma pelo WhatsApp.
           </p>
           <ul className="mt-10 space-y-5 text-[0.98rem]">
             <li className="flex gap-3">
-              <Clock size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-amber-ink" />
+              <Clock size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-accent-ink" />
               <span>
                 <strong className="font-semibold text-ink">{empresa.horarioResumo}</strong>
                 <br />
@@ -153,17 +151,17 @@ export default function Agenda() {
               </span>
             </li>
             <li className="flex gap-3">
-              <MessageCircle size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-amber-ink" />
+              <MessageCircle size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-accent-ink" />
               <span className="text-mist">O pedido só vale como agendamento depois da confirmação no WhatsApp.</span>
             </li>
             <li className="flex gap-3">
-              <CalendarCheck size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-amber-ink" />
+              <CalendarCheck size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-accent-ink" />
               <span className="text-mist">Não encontrou um horário bom? Chame no WhatsApp que a gente tenta encaixar.</span>
             </li>
           </ul>
         </div>
 
-        <form onSubmit={onSubmit} noValidate className="rounded-[26px] border border-line/70 bg-paper p-5 shadow-[0_30px_60px_-40px_rgba(20,39,41,0.45)] sm:p-8 md:col-span-8 md:p-10">
+        <form onSubmit={onSubmit} noValidate className="rounded-[26px] border border-line/70 bg-paper p-5 shadow-[0_30px_60px_-40px_rgba(7,31,61,0.45)] sm:p-8 md:col-span-8 md:p-10">
           {/* Semana */}
           <div className="flex items-center justify-between gap-4">
             <p className="font-display text-[1.45rem] leading-tight md:text-[1.7rem]" aria-live="polite">
@@ -176,7 +174,7 @@ export default function Agenda() {
                 onClick={() => mudarSemana(-1)}
                 disabled={semana === 0}
                 aria-label="Semana anterior"
-                className="grid h-11 w-11 place-items-center rounded-full border border-line text-pine transition-colors hover:border-pine disabled:opacity-35 disabled:hover:border-line"
+                className="grid h-11 w-11 place-items-center rounded-full border border-line text-navy transition-colors hover:border-navy disabled:opacity-35 disabled:hover:border-line"
               >
                 <ChevronLeft size={18} strokeWidth={1.6} />
               </button>
@@ -185,7 +183,7 @@ export default function Agenda() {
                 onClick={() => mudarSemana(1)}
                 disabled={semana >= semanas.length - 1}
                 aria-label="Próxima semana"
-                className="grid h-11 w-11 place-items-center rounded-full border border-line text-pine transition-colors hover:border-pine disabled:opacity-35 disabled:hover:border-line"
+                className="grid h-11 w-11 place-items-center rounded-full border border-line text-navy transition-colors hover:border-navy disabled:opacity-35 disabled:hover:border-line"
               >
                 <ChevronRight size={18} strokeWidth={1.6} />
               </button>
@@ -210,7 +208,7 @@ export default function Agenda() {
                 return (
                   <label
                     key={d.iso}
-                    className={`relative flex cursor-pointer flex-col items-center rounded-2xl border py-3 transition-all duration-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-amber-ink sm:py-4 ${ativo ? 'border-pine bg-pine text-bone' : 'border-line bg-bone/60 text-ink hover:border-pine/50'}`}
+                    className={`relative flex cursor-pointer flex-col items-center rounded-2xl border py-3 transition-all duration-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-ink sm:py-4 ${ativo ? 'border-navy bg-navy text-bone' : 'border-line bg-bone/60 text-ink hover:border-navy/50'}`}
                   >
                     <input type="radio" name="dia" value={d.iso} checked={ativo} onChange={() => escolherDia(d.iso)} className="sr-only" />
                     <span className={`text-[0.72rem] font-semibold uppercase tracking-[0.12em] ${ativo ? 'text-bone/70' : 'text-mist'}`}>{d.semana}</span>
@@ -247,7 +245,7 @@ export default function Agenda() {
                       <label
                         data-slot
                         key={h}
-                        className={`cursor-pointer rounded-full border py-2.5 text-center text-[0.98rem] tabular-nums transition-all duration-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-amber-ink ${ativo ? 'border-amber bg-amber font-semibold text-pine-deep' : 'border-line bg-bone/60 hover:border-pine/60'}`}
+                        className={`cursor-pointer rounded-full border py-2.5 text-center text-[0.98rem] tabular-nums transition-all duration-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-ink ${ativo ? 'border-accent bg-accent font-semibold text-navy-deep' : 'border-line bg-bone/60 hover:border-navy/60'}`}
                       >
                         <input
                           type="radio"
@@ -280,7 +278,7 @@ export default function Agenda() {
               {hora ? (
                 <>
                   {cap(dia?.semanaLonga)}, {dia?.dia} de {dia?.mesLongo} às{' '}
-                  <em className="text-amber-ink">{hora}</em>
+                  <em className="text-accent-ink">{hora}</em>
                 </>
               ) : (
                 <span className="text-mist">Selecione um horário acima</span>
@@ -323,7 +321,7 @@ export default function Agenda() {
                 error={erros.aceite}
               >
                 Concordo que meu nome e o horário escolhido sejam usados apenas para o agendamento, conforme a{' '}
-                <Link to="/politica-de-privacidade" className="text-pine underline underline-offset-2">Política de Privacidade</Link>.
+                <Link to="/politica-de-privacidade" className="text-navy underline underline-offset-2">Política de Privacidade</Link>.
               </Checkbox>
             </div>
             <div className="mt-7 flex flex-wrap items-center gap-5">

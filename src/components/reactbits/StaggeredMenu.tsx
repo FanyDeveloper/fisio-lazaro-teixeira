@@ -3,7 +3,8 @@
  * que entram em sequência e links que sobem um a um.
  */
 import { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import SmartLink from '../SmartLink'
 import { Phone, MapPin, Instagram } from 'lucide-react'
 import { gsap, prefersReducedMotion } from '../../lib/gsap'
 import { empresa, mapsLink, navLinks } from '../../data/empresa'
@@ -12,6 +13,8 @@ import { telLink, waLink } from '../../lib/whatsapp'
 type Props = { open: boolean; onClose: () => void }
 
 export default function StaggeredMenu({ open, onClose }: Props) {
+  const { pathname, hash } = useLocation()
+  const atual = (to: string) => (to.includes('#') ? pathname + hash === to : to === '/' ? pathname === '/' && !hash : pathname.startsWith(to))
   const root = useRef<HTMLDivElement>(null)
   const tl = useRef<gsap.core.Timeline | null>(null)
 
@@ -58,34 +61,32 @@ export default function StaggeredMenu({ open, onClose }: Props) {
       aria-modal="true"
       aria-label="Menu"
       aria-hidden={!open}
-      className="fixed inset-0 z-40 lg:hidden"
+      className="fixed inset-0 z-[45] xl:hidden"
       data-lenis-prevent
     >
-      <div data-layer className="absolute inset-0 bg-amber" />
-      <div data-layer className="absolute inset-0 bg-pine-deep" />
-      <div data-layer className="grain grain-dark absolute inset-0 flex flex-col bg-pine px-6 pb-8 pt-28 text-bone">
-        <nav aria-label="Menu principal" className="flex-1">
-          <ul className="space-y-1">
+      <div data-layer className="absolute inset-0 bg-accent" />
+      <div data-layer className="absolute inset-0 bg-navy-deep" />
+      <div data-layer className="absolute inset-0 flex flex-col overflow-y-auto bg-navy px-6 pb-8 pt-28 text-bone">
+        <nav aria-label="Menu principal" className="flex-1 pb-8">
+          <ul className="space-y-0.5">
             {navLinks.map((l) => (
               <li key={l.to} data-link className="overflow-hidden">
-                <NavLink
+                <SmartLink
                   to={l.to}
-                  end={l.to === '/'}
                   onClick={onClose}
                   tabIndex={open ? 0 : -1}
-                  className={({ isActive }) =>
-                    `block py-1 font-display text-[2.6rem] leading-tight ${isActive ? 'italic text-amber' : 'text-bone'}`
-                  }
+                  aria-current={atual(l.to) ? 'location' : undefined}
+                  className={`block py-1 font-display text-[1.9rem] leading-tight sm:text-[2.3rem] ${atual(l.to) ? 'italic text-accent' : 'text-bone'}`}
                 >
                   {l.label}
-                </NavLink>
+                </SmartLink>
               </li>
             ))}
           </ul>
         </nav>
         <div className="space-y-4 border-t border-bone/15 pt-6 text-[0.95rem]">
-          <a data-foot href={waLink()} tabIndex={open ? 0 : -1} className="flex w-full items-center justify-center rounded-full bg-amber px-6 py-4 font-semibold text-pine-deep">
-            Agendar pelo WhatsApp
+          <a data-foot href={waLink()} tabIndex={open ? 0 : -1} className="flex w-full items-center justify-center rounded-full bg-accent px-6 py-4 font-semibold text-navy-deep">
+            Agende sua avaliação
           </a>
           <a data-foot href={telLink} tabIndex={open ? 0 : -1} className="flex items-center gap-3 text-bone/80">
             <Phone size={18} strokeWidth={1.5} /> {empresa.telefone}

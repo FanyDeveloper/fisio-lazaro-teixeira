@@ -5,9 +5,9 @@ type Base = { id: string; label: string; value: string; error?: string; required
 
 const wrap = 'relative'
 const field =
-  'peer block w-full rounded-2xl border bg-paper px-5 pb-3 pt-7 text-[1.02rem] text-ink outline-none transition-colors duration-300 focus:border-pine focus:ring-0'
+  'peer block w-full rounded-2xl border bg-paper px-5 pb-3 pt-7 text-[1.02rem] text-ink outline-none transition-colors duration-300 focus:border-navy focus:ring-0'
 const lbl =
-  'pointer-events-none absolute left-5 top-[1.15rem] origin-left text-mist transition-all duration-300 ease-[var(--ease-out-expo)] peer-focus:-translate-y-2.5 peer-focus:scale-[0.78] peer-focus:text-pine peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.78]'
+  'pointer-events-none absolute left-5 top-[1.15rem] origin-left text-mist transition-all duration-300 ease-[var(--ease-out-expo)] peer-focus:-translate-y-2.5 peer-focus:scale-[0.78] peer-focus:text-navy peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.78]'
 
 function Err({ id, error }: { id: string; error?: string }) {
   return error ? (

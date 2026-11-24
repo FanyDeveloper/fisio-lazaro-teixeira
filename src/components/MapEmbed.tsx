@@ -14,24 +14,24 @@ export default function MapEmbed({ className = '' }: { className?: string }) {
           src={mapsEmbed}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 h-full w-full border-0 grayscale-[35%] sepia-[12%]"
+          className="absolute inset-0 h-full w-full border-0 grayscale-[30%]"
         />
       ) : (
-        <div className="grain absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
           <svg aria-hidden viewBox="0 0 400 300" className="absolute inset-0 h-full w-full text-line" preserveAspectRatio="xMidYMid slice">
             <g fill="none" stroke="currentColor" strokeWidth="1">
               <path d="M0 80h400M0 170h400M0 240h400M90 0v300M210 0v300M320 0v300M0 20l400 120" />
             </g>
           </svg>
-          <span className="relative grid h-14 w-14 place-items-center rounded-full bg-pine text-bone">
+          <span className="relative grid h-14 w-14 place-items-center rounded-full bg-navy text-bone">
             <MapPin strokeWidth={1.5} />
           </span>
           <p className="relative max-w-xs text-[0.95rem] text-mist">Rua 300, 31 · Centro · Balneário Camboriú</p>
           <div className="relative flex flex-wrap justify-center gap-2">
-            <button onClick={() => setLoad(true)} className="rounded-full bg-pine px-5 py-2.5 text-sm font-semibold text-bone hover:bg-pine-deep">
+            <button onClick={() => setLoad(true)} className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-bone hover:bg-navy-deep">
               Mostrar mapa
             </button>
-            <a href={mapsLink} target="_blank" rel="noopener" className="rounded-full border border-pine/30 bg-paper px-5 py-2.5 text-sm font-semibold text-pine">
+            <a href={mapsLink} target="_blank" rel="noopener" className="rounded-full border border-navy/30 bg-paper px-5 py-2.5 text-sm font-semibold text-navy">
               Abrir no Google Maps
             </a>
           </div>

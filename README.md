@@ -46,18 +46,45 @@ Seção "Escolha o seu horário" na Início (terceira seção, `src/components/A
   Para bloquear horários ocupados automaticamente, é preciso integrar com um calendário (por exemplo Google Agenda ou Cal.com).
 - Tudo configurável em `empresa.agenda` (dias, horários, intervalo, antecedência, semanas exibidas, feriados).
 
+## Arquitetura da Início (reformulação de novembro de 2026)
+
+Cada seção é um componente em `src/components/home/` e tem uma âncora usada no menu:
+
+| # | Seção | Âncora | Componente |
+|---|-------|--------|------------|
+| 01 | Abertura (lema, nome, CTAs) | `#inicio` | `Hero.tsx` |
+| 02 | Apresentação profissional | `#sobre` | `Apresentacao.tsx` |
+| 03 | Áreas de atuação | `#areas` | `Areas.tsx` |
+| 04 | Avaliação e tecnologia | `#tecnologia` | `Tecnologia.tsx` |
+| 05 | Processo de atendimento | `#processo` | `Processo.tsx` |
+| 06 | Envelhecimento e quedas | `#envelhecimento` | `Envelhecimento.tsx` |
+| 07 | Atuação acadêmica | `#academico` | `Academico.tsx` |
+| 08 | Produção científica | `#publicacoes` | `Publicacoes.tsx` |
+| 09 | Depoimentos (Google, texto íntegro) | `#depoimentos` | `Reviews.tsx` |
+| 10 | Contato + agenda online | `#contato`, `#agenda` | `Contato.tsx`, `Agenda.tsx` |
+
+Textos e listas ficam em `src/data/empresa.ts` (`areas`, `tecnologias`, `processo`, `envelhecimento`, `academico`, `publicacoes`, `navLinks`, `navDesktop`).
+Links de seção usam `SmartLink` (rola até a seção, inclusive vindo de outra página).
+
+### Como adicionar fotos e publicações
+
+- **Equipamentos:** salve em `public/images/tecnologia/` e preencha `foto: { src, alt }` no item de `tecnologias`.
+- **Aulas, palestras e eventos:** salve em `public/images/academico/` e preencha `academico.fotos`.
+- **Publicações:** preencha `publicacoes` (tipo, título, veículo, ano, autores, link/DOI, capa). Enquanto a lista estiver vazia, a seção mostra espaços reservados.
+- **Botão "Conheça minha trajetória acadêmica":** preencha `curriculoAcademico` (ex.: link do Lattes). Vazio, leva para a página Sobre.
+
 ## Pendências [CONFIRMAR]
 
 Procure `CONFIRMAR` no projeto para encontrar todas. Principais:
 
-1. Lista de serviços: deduzida das fotos (jaleco "Fisioterapeuta Neurofuncional" e o modelo do labirinto). Validar.
-2. Número do CREFITO, formação e anos de atuação.
-3. Valor da consulta, convênios, formas de pagamento, duração da primeira consulta.
-4. Estacionamento, ponto de referência, sala/andar, acessibilidade.
-5. Atendimento domiciliar? Relatório escrito da avaliação? Média de sessões? Nomes dos equipamentos?
-6. E-mail, Instagram, CPF/CNPJ (Política de Privacidade) e prazo de retenção dos dados.
-7. Coordenadas (lat/lng) para o JSON-LD.
-8. Domínio definitivo.
-9. Foto do consultório (espaço reservado na página Sobre).
-10. Agenda online: duração de cada consulta (hoje, horários de 30 em 30 min), feriados municipais, recesso e férias (`empresa.agenda` em `src/data/empresa.ts`).
-11. Frase de destaque na página Sobre: aprovar com o Dr. Lázaro ou trocar por uma dele.
+1. Fotos reais: equipamentos (vHIT, videooculografia, posturografia, AVD, BAIOBIT, Balance Mat), aulas/palestras/eventos, consultório.
+2. Publicações reais (títulos, autores, revista, ano, DOI, capas) e link do Lattes ou página acadêmica.
+3. Instituições e cursos em que leciona e coordena a pós-graduação.
+4. Descrição exata do Balance Mat e lista dos "outros recursos" de avaliação e tratamento.
+5. Número do CREFITO.
+6. Valor da consulta, convênios, formas de pagamento, duração da primeira consulta.
+7. Estacionamento, ponto de referência, sala/andar, acessibilidade.
+8. Atendimento domiciliar? Relatório escrito da avaliação? Média de sessões?
+9. E-mail, Instagram, CPF/CNPJ (Política de Privacidade) e prazo de retenção dos dados.
+10. Coordenadas (lat/lng) para o JSON-LD e domínio definitivo.
+11. Agenda online: duração de cada consulta, feriados municipais, recesso e férias.

@@ -81,7 +81,7 @@ export default function Privacidade() {
             <p>Esta política pode ser atualizada. A data no topo da página indica a última revisão.</p>
 
             <p className="pt-8">
-              <Link to="/contato" className="text-pine underline underline-offset-2">Voltar para o contato</Link>
+              <Link to="/contato" className="text-navy underline underline-offset-2">Voltar para o contato</Link>
             </p>
           </article>
         </div>

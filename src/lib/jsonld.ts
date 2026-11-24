@@ -40,6 +40,8 @@ export function businessJsonLd() {
       '@type': 'Person',
       name: empresa.profissional,
       jobTitle: empresa.especialidade,
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidade Federal de São Paulo (UNIFESP)' },
+      hasCredential: empresa.formacao.map((f) => ({ '@type': 'EducationalOccupationalCredential', name: f.titulo })),
     },
   }
   // [CONFIRMAR: coordenadas] — só entra no JSON-LD quando preenchidas em empresa.ts

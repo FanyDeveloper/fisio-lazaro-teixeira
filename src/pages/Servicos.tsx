@@ -32,14 +32,14 @@ export default function Servicos() {
               to={`/servicos/${s.slug}`}
               className={`block ${i === 0 ? 'md:col-span-7' : i === 1 ? 'md:col-span-5 md:mt-20' : i === 2 ? 'md:col-span-5' : 'md:col-span-7 md:-mt-20'}`}
             >
-              <SpotlightCard className={`h-full rounded-[26px] p-8 transition-colors md:p-11 ${i % 3 === 0 ? 'bg-pine text-bone' : 'border border-line bg-paper'}`}>
+              <SpotlightCard className={`h-full rounded-[26px] p-8 transition-colors md:p-11 ${i % 3 === 0 ? 'bg-navy text-bone' : 'border border-line bg-paper'}`}>
                 <div className="flex items-start justify-between gap-6">
                   <h2 className="font-display text-[2rem] leading-tight md:text-[2.6rem]">{s.nome}</h2>
                   <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border transition-transform duration-500 group-hover:rotate-45 ${i % 3 === 0 ? 'border-bone/30' : 'border-line'}`}>
                     <ArrowUpRight size={20} strokeWidth={1.5} />
                   </span>
                 </div>
-                <p className={`mt-4 text-[1.1rem] ${i % 3 === 0 ? 'text-amber' : 'text-amber-ink'}`}>{s.beneficio}</p>
+                <p className={`mt-4 text-[1.1rem] ${i % 3 === 0 ? 'text-accent' : 'text-accent-ink'}`}>{s.beneficio}</p>
                 <ul className={`mt-8 space-y-2.5 text-[0.98rem] ${i % 3 === 0 ? 'text-bone/75' : 'text-mist'}`}>
                   {s.paraQuem.slice(0, 3).map((p) => (
                     <li key={p} className="flex gap-3">

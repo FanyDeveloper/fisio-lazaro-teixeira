@@ -26,7 +26,7 @@ export default function Faq() {
             <ul className="mt-5 space-y-3">
               {servicos.map((s) => (
                 <li key={s.slug}>
-                  <Link to={`/servicos/${s.slug}#duvidas`} className="font-display text-xl text-pine underline-offset-4 hover:underline">
+                  <Link to={`/servicos/${s.slug}#duvidas`} className="font-display text-xl text-navy underline-offset-4 hover:underline">
                     {s.nome}
                   </Link>
                 </li>

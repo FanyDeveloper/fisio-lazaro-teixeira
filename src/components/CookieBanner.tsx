@@ -33,17 +33,17 @@ export default function CookieBanner() {
       ref={ref}
       role="region"
       aria-label="Aviso de cookies"
-      className="fixed bottom-20 left-3 right-3 z-40 rounded-2xl border border-line bg-paper/95 p-5 shadow-[0_20px_50px_-25px_rgba(20,39,41,0.45)] backdrop-blur md:bottom-6 md:left-6 md:right-auto md:max-w-sm"
+      className="fixed bottom-20 left-3 right-3 z-40 rounded-2xl border border-line bg-paper/95 p-5 shadow-[0_20px_50px_-25px_rgba(7,31,61,0.45)] backdrop-blur md:bottom-6 md:left-6 md:right-auto md:max-w-sm"
     >
       <p className="text-[0.92rem] leading-relaxed text-mist">
         Usamos apenas cookies necessários e o mapa do Google, que pode gravar cookies próprios. Veja a{' '}
-        <Link to="/politica-de-privacidade" className="text-pine underline underline-offset-2">Política de Privacidade</Link>.
+        <Link to="/politica-de-privacidade" className="text-navy underline underline-offset-2">Política de Privacidade</Link>.
       </p>
       <div className="mt-4 flex gap-2">
-        <button onClick={() => choose('aceito')} className="rounded-full bg-pine px-5 py-2.5 text-sm font-semibold text-bone hover:bg-pine-deep">
+        <button onClick={() => choose('aceito')} className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-bone hover:bg-navy-deep">
           Aceitar
         </button>
-        <button onClick={() => choose('recusado')} className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-pine hover:border-pine">
+        <button onClick={() => choose('recusado')} className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-navy hover:border-navy">
           Recusar
         </button>
       </div>

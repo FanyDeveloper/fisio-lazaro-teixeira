@@ -49,7 +49,7 @@ export default function SplitText({ text, as: Tag = 'h2', className = '', delay 
         const clean = w.replace(/\*/g, '')
         return (
           <span key={i} className="mask-line" aria-hidden="true">
-            <span data-word className={`inline-block will-change-transform ${em ? 'italic text-amber-ink' : ''}`}>
+            <span data-word className={`inline-block will-change-transform ${em ? 'italic text-[var(--em,var(--color-accent-ink))]' : ''}`}>
               {clean}
             </span>
             {i < words.length - 1 ? ' ' : ''}

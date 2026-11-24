@@ -33,7 +33,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener"
       aria-label="Conversar no WhatsApp"
-      className="group relative grid h-14 w-14 place-items-center rounded-full bg-[#1f7a4d] text-white shadow-[0_14px_30px_-12px_rgba(20,39,41,0.6)] transition-transform duration-300 hover:scale-105"
+      className="group relative grid h-14 w-14 place-items-center rounded-full bg-[#1f7a4d] text-white shadow-[0_14px_30px_-12px_rgba(7,31,61,0.6)] transition-transform duration-300 hover:scale-105"
     >
       <WaIcon size={26} />
       <span className="pointer-events-none absolute right-[calc(100%+12px)] hidden whitespace-nowrap rounded-full bg-ink px-4 py-2 text-sm text-bone opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:block">

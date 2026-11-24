@@ -1,40 +1,44 @@
 import { useSEO } from '../hooks/useSEO'
-import { empresa } from '../data/empresa'
+import { academico, empresa } from '../data/empresa'
 import PageHero from '../components/PageHero'
 import RevealImage from '../components/RevealImage'
 import SectionTitle from '../components/SectionTitle'
+import SectionLabel from '../components/SectionLabel'
 import ScrollReveal from '../components/reactbits/ScrollReveal'
 import GoogleRating from '../components/GoogleRating'
 import FinalCTA from '../components/FinalCTA'
 import Reviews from '../components/Reviews'
+import PhotoSlot from '../components/PhotoSlot'
+import ButtonSecondary from '../components/ui/ButtonSecondary'
 
 const valores = [
   {
     nome: 'Escuta',
-    texto: 'A consulta começa pela sua história. Questionários e conversa vêm antes de qualquer aparelho ou exercício.',
+    texto: 'A avaliação começa pela sua história. Conversa e questionários vêm antes de qualquer equipamento ou exercício.',
+  },
+  {
+    nome: 'Precisão',
+    texto: 'Recursos tecnológicos para medir e acompanhar, sempre a serviço do raciocínio clínico, nunca no lugar dele.',
   },
   {
     nome: 'Clareza',
-    texto: 'Você tem direito de entender o próprio diagnóstico. Tudo é explicado em palavras simples, quantas vezes for preciso.',
-  },
-  {
-    nome: 'Atualização',
-    texto: 'Técnicas e equipamentos de avaliação atuais, escolhidos para dar precisão e não para impressionar.',
+    texto: 'Os resultados são explicados em linguagem simples, para que você entenda o próprio caso e participe das decisões.',
   },
 ]
 
 export default function Sobre() {
   useSEO({
-    title: 'Sobre o Dr. Lázaro Juliano Teixeira | Fisioterapeuta em Balneário Camboriú',
+    title: 'Trajetória | Lázaro Juliano Teixeira, Fisioterapeuta Neurofuncional Vestibular',
     description:
-      'Conheça o Dr. Lázaro Juliano Teixeira, fisioterapeuta neurofuncional com consultório no Centro de Balneário Camboriú. Atendimento humanizado e diagnóstico claro.',
+      'Fisioterapeuta neurofuncional vestibular desde 1998, mestre em Medicina Interna e Terapêutica pela UNIFESP e professor de pós-graduação. Consultório no Centro de Balneário Camboriú.',
     path: '/sobre',
   })
   return (
     <main>
       <PageHero
-        title="Tempo para ouvir, *clareza* para explicar."
-        intro="O consultório do Dr. Lázaro Juliano Teixeira fica no Centro de Balneário Camboriú. É um espaço pensado para atender com calma, uma pessoa de cada vez."
+        kicker="Trajetória"
+        title="Clínica, ensino e *ciência* desde 1998."
+        intro="Lázaro Juliano Teixeira é fisioterapeuta neurofuncional vestibular, com consultório no Centro de Balneário Camboriú e atuação na formação de novos fisioterapeutas."
         aside={<GoogleRating />}
       />
 
@@ -47,42 +51,66 @@ export default function Sobre() {
               sizes="(min-width: 768px) 38vw, 92vw"
               width={1000}
               height={1476}
-              alt="Dr. Lázaro Teixeira de jaleco grafite com o bordado Fisioterapeuta Neurofuncional, segurando uma lupa e um modelo do labirinto do ouvido interno"
-              className="aspect-[3/4] rounded-[28px] bg-sand md:sticky md:top-28"
+              alt="Lázaro Juliano Teixeira de jaleco com o bordado Fisioterapeuta Neurofuncional, segurando uma lupa e um modelo do labirinto do ouvido interno"
+              className="aspect-[3/4] rounded-[22px] bg-sand md:sticky md:top-28"
             />
           </div>
           <div className="md:col-span-6 md:col-start-7">
-            <SectionTitle id="dr-titulo" text="Dr. Lázaro Juliano Teixeira" />
-            <p className="mt-3 text-[1.05rem] font-semibold text-amber-ink">
+            <SectionTitle id="dr-titulo" text="Lázaro Juliano Teixeira" className="text-ink" />
+            <p className="mt-3 text-[1.02rem] font-semibold text-accent-ink">
               {empresa.especialidade} · {empresa.registro}
             </p>
             <div className="mt-10 space-y-6 text-[1.08rem] text-mist">
               <p>
-                O Dr. Lázaro é fisioterapeuta neurofuncional: trabalha com o sistema nervoso e com tudo o que depende dele, como o
-                equilíbrio, a coordenação e o movimento. Atende pessoas com tontura e labirintite, quem está se recuperando de um AVC,
-                quem convive com Parkinson e quem simplesmente perdeu a confiança para andar.
+                Fisioterapeuta com atuação clínica desde {empresa.atuacaoDesde}, Lázaro trabalha com o sistema vestibular e com tudo o
+                que depende dele: o equilíbrio, a estabilidade do olhar, a marcha e a segurança para se movimentar.
               </p>
-              <p>{empresa.formacao}</p>
               <p>
-                Experiência: {empresa.anosDeAtuacao}.
+                No consultório, a avaliação combina exame clínico, testes funcionais e recursos tecnológicos, para entender a origem
+                das queixas e acompanhar a evolução de cada paciente com dados.
               </p>
             </div>
+
+            <div id="formacao" className="scroll-mt-28">
+              <h2 className="label-tech mt-14 text-mist">Formação</h2>
+              <ul className="mt-4 border-t border-line">
+                {empresa.formacao.map((f) => (
+                  <li key={f.titulo} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-4">
+                    <span className="text-[1.04rem] font-medium text-ink">{f.titulo}</span>
+                    {f.instituicao && <span className="label-tech text-accent-ink">{f.instituicao}</span>}
+                  </li>
+                ))}
+                <li className="flex flex-wrap items-baseline justify-between gap-x-6 border-b border-line py-4">
+                  <span className="text-[1.04rem] font-medium text-ink">Atuação clínica</span>
+                  <span className="label-tech text-accent-ink">desde {empresa.atuacaoDesde}</span>
+                </li>
+              </ul>
+
+              <h2 className="label-tech mt-12 text-mist">Experiência em</h2>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {empresa.experiencias.map((e) => (
+                  <li key={e} className="rounded-full border border-line px-4 py-1.5 text-[0.95rem] text-navy">
+                    {e}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <ScrollReveal
-              className="mt-14 border-l-2 border-amber pl-6 font-display text-[1.6rem] leading-snug text-ink md:text-[2rem]"
-              text="Quem sai daqui precisa saber o que tem e o que fazer. Se isso não acontecer, a consulta não terminou."
+              className="mt-14 border-l-2 border-navy pl-6 font-display text-[1.7rem] leading-snug text-ink md:text-[2.1rem]"
+              text={empresa.lema}
             />
-            <p className="mt-3 pl-7 text-sm text-mist">[CONFIRMAR: frase com aprovação do Dr. Lázaro ou substituir por uma dele]</p>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="valores-titulo" className="grain bg-pine py-24 text-bone md:py-32">
+      <section aria-labelledby="valores-titulo" className="bg-navy-deep py-24 text-bone [--em:var(--color-accent)] md:py-32">
         <div className="container-x">
-          <SectionTitle id="valores-titulo" text="Como pensamos o atendimento" className="max-w-2xl text-bone" />
+          <SectionTitle id="valores-titulo" text="Como o atendimento é *conduzido*" className="max-w-2xl text-bone" />
           <dl className="mt-16 grid gap-y-12 md:grid-cols-12">
             {valores.map((v, i) => (
               <div key={v.nome} className={`border-t border-bone/20 pt-6 md:col-span-4 ${i === 1 ? 'md:mt-16' : i === 2 ? 'md:mt-32' : ''} md:pr-10`}>
-                <dt className="font-display text-[2.2rem] italic text-amber">{v.nome}</dt>
+                <dt className="font-display text-[2.1rem] italic text-accent">{v.nome}</dt>
                 <dd className="mt-4 text-bone/75">{v.texto}</dd>
               </div>
             ))}
@@ -90,22 +118,36 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section aria-labelledby="ambiente-titulo" className="py-24 md:py-36">
+      <section aria-labelledby="ensino-titulo" className="py-24 md:py-32">
+        <div className="container-x grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <SectionLabel>Ensino e ciência</SectionLabel>
+            <SectionTitle id="ensino-titulo" text="Clínica e ciência caminham *juntas*." className="mt-6" />
+            <p className="mt-6 max-w-xl text-mist">
+              Professor e coordenador de pós-graduação, com atuação em {academico.atividades.slice(2).map((a) => a.toLowerCase()).join(', ')}.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9">
+            <ButtonSecondary to="/#academico">Atuação acadêmica</ButtonSecondary>
+            <ButtonSecondary to="/#publicacoes">Produção científica</ButtonSecondary>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ambiente-titulo" className="bg-bone py-24 md:py-32">
         <div className="container-x grid gap-10 md:grid-cols-12 md:items-center">
           <div className="md:col-span-5">
             <SectionTitle id="ambiente-titulo" text="O consultório" />
             <p className="mt-6 text-mist">
-              Um ambiente reservado no Centro de Balneário Camboriú, com os equipamentos de avaliação à mão e espaço para os exercícios
-              de equilíbrio e movimento. {empresa.endereco.complemento}
+              Um ambiente reservado no Centro de Balneário Camboriú, com os recursos de avaliação à mão e espaço para os exercícios de
+              equilíbrio e movimento. {empresa.endereco.complemento}
             </p>
           </div>
-          {/* Espaço reservado: substituir pela foto real do consultório */}
-          <figure className="grain flex aspect-[16/10] flex-col items-center justify-center rounded-[28px] border border-dashed border-pine/30 bg-sand p-8 text-center md:col-span-7">
-            <p className="font-display text-xl text-pine">Foto do consultório</p>
-            <figcaption className="mt-2 max-w-sm text-sm text-mist">
-              [CONFIRMAR: foto horizontal da sala de atendimento, com luz natural, mostrando a maca e os equipamentos de avaliação]
-            </figcaption>
-          </figure>
+          <PhotoSlot
+            titulo="Foto do consultório"
+            detalhe="[CONFIRMAR: foto horizontal da sala de atendimento, com luz natural, mostrando os equipamentos de avaliação]"
+            className="aspect-[16/10] text-navy md:col-span-7"
+          />
         </div>
       </section>
 

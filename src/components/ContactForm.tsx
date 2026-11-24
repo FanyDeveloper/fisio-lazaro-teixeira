@@ -92,7 +92,7 @@ export default function ContactForm({ servicoInicial = '' }: { servicoInicial?: 
       <FloatingTextarea id="mensagem" label="Conte um pouco do que está sentindo (opcional)" value={d.mensagem} onChange={(e) => set('mensagem', e.target.value)} error={erros.mensagem} />
       <Checkbox id="consentimento" checked={d.consentimento} onChange={(v) => set('consentimento', v)} error={erros.consentimento}>
         Concordo que meus dados sejam usados apenas para o consultório responder meu contato, conforme a{' '}
-        <Link to="/politica-de-privacidade" className="text-pine underline underline-offset-2">Política de Privacidade</Link>.
+        <Link to="/politica-de-privacidade" className="text-navy underline underline-offset-2">Política de Privacidade</Link>.
       </Checkbox>
       <div className="flex flex-wrap items-center gap-5 pt-2">
         <ButtonPrimary type="submit" disabled={enviando}>

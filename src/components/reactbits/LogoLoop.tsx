@@ -16,7 +16,7 @@ export default function LogoLoop({ items, speed = 38, className = '' }: { items:
     items.map((t, i) => (
       <span key={`${hidden}-${i}`} aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-8 pr-8">
         <span>{t}</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden className="text-amber">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden className="text-accent">
           <path d="M5 15c-2-4 1-9 6-9s7 5 5 8-6 3-7 0 2-4 4-3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
       </span>

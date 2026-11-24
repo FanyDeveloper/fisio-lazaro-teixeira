@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { useRef } from 'react'
 import { gsap, useGSAP, prefersReducedMotion } from '../lib/gsap'
 import SplitText from './reactbits/SplitText'
-import Noise from './reactbits/Noise'
 
 type Props = { kicker?: ReactNode; title: string; intro?: string; children?: ReactNode; aside?: ReactNode }
 
@@ -18,12 +17,11 @@ export default function PageHero({ kicker, title, intro, children, aside }: Prop
   )
   return (
     <section ref={ref} className="relative overflow-hidden pb-16 pt-36 md:pb-24 md:pt-48">
-      <Noise />
       <div className="container-x relative grid gap-10 md:grid-cols-12 md:items-end">
         <div className="md:col-span-8">
           {kicker && (
             <div data-hero-fade className="mb-6 flex items-center gap-3 text-[0.9rem] text-mist">
-              <span className="h-px w-10 bg-amber" aria-hidden /> {kicker}
+              <span className="h-px w-10 bg-accent" aria-hidden /> {kicker}
             </div>
           )}
           <SplitText text={title} as="h1" trigger="load" delay={0.15} className="font-display text-[2.8rem] leading-[0.98] md:text-[5.2rem]" />

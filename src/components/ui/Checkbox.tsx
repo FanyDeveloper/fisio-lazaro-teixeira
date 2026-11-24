@@ -19,13 +19,13 @@ export default function Checkbox({ id, checked, onChange, children, error }: Pro
           />
           <span
             aria-hidden
-            className={`grid h-6 w-6 place-items-center rounded-[7px] border transition-all duration-300 peer-checked:border-pine peer-checked:bg-pine peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-amber-ink ${error ? 'border-[#9b2c1f]' : 'border-line bg-paper group-hover:border-pine/60'}`}
+            className={`grid h-6 w-6 place-items-center rounded-[7px] border transition-all duration-300 peer-checked:border-navy peer-checked:bg-navy peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-ink ${error ? 'border-[#9b2c1f]' : 'border-line bg-paper group-hover:border-navy/60'}`}
           >
             <svg viewBox="0 0 24 24" className="h-4 w-4">
               <path
                 d="M5 12.5l4.5 4.5L19 7.5"
                 fill="none"
-                stroke="#F4F1EC"
+                stroke="#FFFFFF"
                 strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"

@@ -31,7 +31,7 @@ export default function LabyrinthLine({ className = '', scrub = true }: { classN
   return (
     <svg ref={ref} viewBox="0 0 600 600" fill="none" aria-hidden className={className}>
       <path d="M170 410C90 350 80 220 160 150s240-70 300 20" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-      <path d="M240 470c110 40 240-20 250-140S410 140 300 150" stroke="#C08A3E" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M240 470c110 40 240-20 250-140S410 140 300 150" style={{ stroke: "var(--color-accent-ink)" }} strokeWidth="1.2" strokeLinecap="round" />
       <path d="M300 300c-40 25-40 90 10 115s110-10 110-65-50-80-90-60" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
     </svg>
   )

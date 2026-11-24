@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { gsap, ScrollTrigger, prefersReducedMotion } from '../lib/gsap'
 import { getLenis, useLenis } from '../hooks/useLenis'
+import { scrollToHash } from '../lib/scroll'
 import { businessJsonLd } from '../lib/jsonld'
 import Header from './Header'
 import Footer from './Footer'
@@ -13,22 +14,28 @@ export default function Layout() {
   const { pathname, hash } = useLocation()
   const main = useRef<HTMLDivElement>(null)
 
-  // Rolagem para o topo + transição suave a cada troca de página
+  // Troca de página: volta ao topo com transição suave. Troca só de âncora: rola até a seção.
+  const prevPath = useRef<string | null>(null)
   useLayoutEffect(() => {
-    const lenis = getLenis()
-    if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
-    else window.scrollTo(0, 0)
-    const el = main.current
-    if (el && !prefersReducedMotion()) {
-      gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', clearProps: 'transform' })
-    }
-    const t = window.setTimeout(() => {
-      ScrollTrigger.refresh()
-      if (hash) {
-        const target = document.querySelector<HTMLElement>(hash)
-        if (target) (lenis ? lenis.scrollTo(target, { offset: -100 }) : target.scrollIntoView())
+    const pathChanged = prevPath.current !== null && prevPath.current !== pathname
+    const first = prevPath.current === null
+    prevPath.current = pathname
+    if (pathChanged) {
+      const lenis = getLenis()
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+      else window.scrollTo(0, 0)
+      const el = main.current
+      if (el && !prefersReducedMotion()) {
+        gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', clearProps: 'transform' })
       }
-    }, 120)
+    }
+    const t = window.setTimeout(
+      () => {
+        if (pathChanged || first) ScrollTrigger.refresh()
+        if (hash) scrollToHash(hash, first)
+      },
+      pathChanged || first ? 160 : 0,
+    )
     return () => window.clearTimeout(t)
   }, [pathname, hash])
 

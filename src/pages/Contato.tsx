@@ -34,14 +34,14 @@ export default function Contato() {
           <address className="space-y-10 not-italic md:col-span-4">
             <div>
               <h2 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-mist">WhatsApp e telefone</h2>
-              <a href={telLink} className="mt-3 flex items-center gap-3 font-display text-[1.9rem] text-pine hover:text-amber-ink">
+              <a href={telLink} className="mt-3 flex items-center gap-3 font-display text-[1.9rem] text-navy hover:text-accent-ink">
                 <Phone size={22} strokeWidth={1.4} /> {empresa.telefone}
               </a>
             </div>
             <div>
               <h2 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-mist">Endereço</h2>
-              <a href={mapsLink} target="_blank" rel="noopener" className="mt-3 flex gap-3 text-[1.1rem] text-ink hover:text-pine">
-                <MapPin size={22} strokeWidth={1.4} className="mt-1 shrink-0 text-amber-ink" />
+              <a href={mapsLink} target="_blank" rel="noopener" className="mt-3 flex gap-3 text-[1.1rem] text-ink hover:text-navy">
+                <MapPin size={22} strokeWidth={1.4} className="mt-1 shrink-0 text-accent-ink" />
                 <span>
                   Rua 300, 31 – Centro
                   <br />
@@ -56,7 +56,7 @@ export default function Contato() {
               <dl className="mt-3 space-y-2">
                 {empresa.horarios.map((h) => (
                   <div key={h.dias} className="flex items-center gap-3 text-[1.05rem]">
-                    <Clock size={18} strokeWidth={1.4} className="shrink-0 text-amber-ink" />
+                    <Clock size={18} strokeWidth={1.4} className="shrink-0 text-accent-ink" />
                     <dt className="text-mist">{h.dias}:</dt>
                     <dd className="text-ink">{h.horas}</dd>
                   </div>

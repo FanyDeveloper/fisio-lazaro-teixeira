@@ -1,22 +1,24 @@
 @import 'tailwindcss';
 
 /*
-  Direção de arte: "Equilíbrio"
-  Grafite-pinho do jaleco + âmbar do modelo de labirinto + papel quente.
+  Direção de arte: "Precisão clínica"
+  Branco predominante, azul profundo como cor de autoridade e um azul claro discreto de apoio.
+  Serifada editorial nos títulos (acadêmico), sem serifa legível no texto e mono só em rótulos técnicos.
 */
 @theme {
-  --color-bone: #f4f1ec;
-  --color-paper: #fbf9f5;
-  --color-sand: #e6dfd3;
-  --color-line: #d6cdbf;
-  --color-ink: #1a1d1e;
-  --color-mist: #55605f;
-  --color-pine: #1f3a3d;
-  --color-pine-deep: #142729;
-  --color-amber: #c08a3e;
-  --color-amber-ink: #8a5a1c;
+  --color-bone: #f6f8fb;
+  --color-paper: #ffffff;
+  --color-sand: #edf1f6;
+  --color-line: #dbe2eb;
+  --color-ink: #0d1726;
+  --color-mist: #566275;
+  --color-navy: #0b2f5b;
+  --color-navy-deep: #071f3d;
+  --color-accent: #8dbbe0;
+  --color-accent-ink: #1f5f99;
 
-  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
   --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -35,7 +37,7 @@
     overscroll-behavior: contain;
   }
   body {
-    background: var(--color-bone);
+    background: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
@@ -49,8 +51,8 @@
   h3 {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    letter-spacing: -0.02em;
-    line-height: 1.04;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
     font-weight: 400;
     text-wrap: balance;
   }
@@ -58,11 +60,11 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--color-pine);
+    background: var(--color-navy);
     color: var(--color-bone);
   }
   :focus-visible {
-    outline: 2px solid var(--color-amber-ink);
+    outline: 2px solid var(--color-accent-ink);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -81,7 +83,33 @@
   }
   /* Tratamento de cor único para todas as fotos */
   .photo-grade {
-    filter: saturate(0.88) contrast(1.03) sepia(0.07) brightness(1.01);
+    filter: saturate(0.92) contrast(1.02);
+  }
+  /* Rótulo técnico: numeração e legendas em mono, usado com moderação */
+  .label-tech {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  /* Grade técnica muito leve, para fundos de seções científicas */
+  .tech-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, currentColor 7%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, currentColor 7%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  /* Espaço reservado para foto que o cliente ainda vai enviar */
+  .photo-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+    background: color-mix(in srgb, currentColor 4%, transparent);
   }
   /* Ruído sutil sobre fundos */
   .grain {
@@ -94,13 +122,13 @@
     inset: 0;
     pointer-events: none;
     z-index: -1;
-    opacity: 0.35;
+    opacity: 0.18;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   .grain-dark::after {
     mix-blend-mode: screen;
-    opacity: 0.25;
+    opacity: 0.12;
   }
   .rule {
     height: 1px;
@@ -118,6 +146,10 @@
   }
 }
 
+html {
+  scroll-padding-top: 96px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -125,4 +157,19 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Troca de painel (seção de tecnologia) */
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.panel-in {
+  animation: panel-in 0.45s var(--ease-out-expo) both;
 }

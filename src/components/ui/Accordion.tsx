@@ -22,7 +22,7 @@ export default function Accordion({ items, tone = 'light' }: { items: { p: strin
               >
                 <span className="font-display text-xl leading-snug md:text-[1.45rem]">{it.p}</span>
                 <span
-                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-all duration-500 ${line} ${isOpen ? 'rotate-45 bg-pine text-bone' : 'group-hover:border-pine'}`}
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-all duration-500 ${line} ${isOpen ? 'rotate-45 bg-navy text-bone' : 'group-hover:border-navy'}`}
                 >
                   <Plus size={18} strokeWidth={1.5} />
                 </span>

@@ -3,7 +3,7 @@ import { useRef, type ReactNode, type MouseEvent } from 'react'
 
 type Props = { children: ReactNode; className?: string; color?: string }
 
-export default function SpotlightCard({ children, className = '', color = 'rgba(192,138,62,0.16)' }: Props) {
+export default function SpotlightCard({ children, className = '', color = 'rgba(141,187,224,0.16)' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const onMove = (e: MouseEvent) => {
     const r = ref.current!.getBoundingClientRect()

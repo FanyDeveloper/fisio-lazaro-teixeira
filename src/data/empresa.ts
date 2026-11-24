@@ -8,7 +8,8 @@ export const empresa = {
   nome: 'Consultório de Fisioterapia Dr. Lázaro Juliano Teixeira',
   nomeCurto: 'Dr. Lázaro Teixeira',
   profissional: 'Dr. Lázaro Juliano Teixeira',
-  especialidade: 'Fisioterapeuta Neurofuncional', // visível no jaleco da foto
+  especialidade: 'Fisioterapeuta Neurofuncional Vestibular',
+  lema: 'Se for para fazer, faça o melhor que puder.',
   registro: '[CONFIRMAR: número do CREFITO]',
   categoria: 'Fisioterapia',
 
@@ -87,8 +88,16 @@ export const empresa = {
     ],
   },
 
-  anosDeAtuacao: '[CONFIRMAR: ano de formação ou anos de atuação]',
-  formacao: '[CONFIRMAR: graduação, especializações e cursos do Dr. Lázaro]',
+  /** Formação informada pelo cliente no briefing. Não acrescentar títulos sem confirmação. */
+  atuacaoDesde: 1998,
+  formacao: [
+    { titulo: 'Mestre em Medicina Interna e Terapêutica', instituicao: 'UNIFESP' },
+    { titulo: 'Especialista em Fisioterapia Neurofuncional Vestibular' },
+    { titulo: 'Especialista em Fisioterapia Traumato-Ortopédica Funcional' },
+  ],
+  experiencias: ['Fisioterapia vestibular', 'Neurologia', 'Equilíbrio', 'Marcha', 'Prevenção de quedas', 'Avaliação funcional'],
+  // [CONFIRMAR: link do Currículo Lattes ou página acadêmica — vazio, o botão leva à página Sobre]
+  curriculoAcademico: '',
   estacionamento: '[CONFIRMAR: há estacionamento próprio ou conveniado perto?]',
   pagamento: '[CONFIRMAR: formas de pagamento aceitas (Pix, cartão, parcelamento)]',
   convenios: '[CONFIRMAR: atende convênios ou só particular com recibo para reembolso?]',
@@ -228,7 +237,7 @@ export const servicos: Servico[] = [
     comoFunciona: [
       { titulo: 'Escuta', texto: 'Sua história, seus sintomas e o que você já tentou.' },
       { titulo: 'Questionários e testes', texto: 'Instrumentos padronizados e testes físicos para medir onde estão as limitações.' },
-      { titulo: 'Equipamentos', texto: 'Recursos tecnológicos de avaliação para dar precisão ao diagnóstico. [CONFIRMAR: nomes dos equipamentos]' },
+      { titulo: 'Equipamentos', texto: 'Quando indicado: vHIT, videooculografia, posturografia, acuidade visual dinâmica computadorizada e análise do movimento por sensores inerciais.' },
       { titulo: 'Explicação e plano', texto: 'Você entende o resultado e sai com recomendações claras, mesmo que não continue o tratamento aqui.' },
     ],
     faq: [
@@ -296,10 +305,217 @@ export const faqGeral: { p: string; r: string }[] = [
   { p: 'Quanto tempo dura a primeira consulta?', r: empresa.duracaoConsulta },
 ]
 
-export const navLinks = [
+/* ------------------------------------------------------------------ */
+/* Navegação                                                           */
+/* ------------------------------------------------------------------ */
+export type NavLinkItem = { to: string; label: string }
+export type NavGroup = NavLinkItem & { id: string; children?: NavLinkItem[] }
+
+/** Lista completa (menu mobile e rodapé). Âncoras apontam para as seções da Início. */
+export const navLinks: NavLinkItem[] = [
   { to: '/', label: 'Início' },
-  { to: '/sobre', label: 'Sobre' },
-  { to: '/servicos', label: 'Serviços' },
-  { to: '/perguntas-frequentes', label: 'Dúvidas' },
-  { to: '/contato', label: 'Contato' },
+  { to: '/#sobre', label: 'Sobre' },
+  { to: '/#areas', label: 'Áreas de atuação' },
+  { to: '/#tecnologia', label: 'Avaliação e tecnologia' },
+  { to: '/servicos', label: 'Tratamentos' },
+  { to: '/#academico', label: 'Atuação acadêmica' },
+  { to: '/#publicacoes', label: 'Publicações' },
+  { to: '/#depoimentos', label: 'Depoimentos' },
+  { to: '/#contato', label: 'Contato' },
 ]
+
+/** Menu do desktop, agrupado para não ficar extenso. `id` = seção usada para marcar o item ativo. */
+export const navDesktop: NavGroup[] = [
+  {
+    id: 'sobre',
+    to: '/#sobre',
+    label: 'Sobre',
+    children: [
+      { to: '/#sobre', label: 'Apresentação' },
+      { to: '/sobre', label: 'Trajetória completa' },
+      { to: '/#depoimentos', label: 'Depoimentos' },
+    ],
+  },
+  { id: 'areas', to: '/#areas', label: 'Áreas de atuação' },
+  { id: 'tecnologia', to: '/#tecnologia', label: 'Avaliação e tecnologia' },
+  { id: 'tratamentos', to: '/servicos', label: 'Tratamentos' },
+  {
+    id: 'academico',
+    to: '/#academico',
+    label: 'Ensino e ciência',
+    children: [
+      { to: '/#academico', label: 'Atuação acadêmica' },
+      { to: '/#publicacoes', label: 'Publicações' },
+    ],
+  },
+  { id: 'contato', to: '/#contato', label: 'Contato' },
+]
+
+/* ------------------------------------------------------------------ */
+/* Áreas de atuação (agrupadas). Linguagem para pacientes.             */
+/* Não acrescentar indicações, promessas ou garantias de resultado.    */
+/* ------------------------------------------------------------------ */
+export type AreaGrupo = { titulo: string; intro: string; itens: { nome: string; texto: string }[] }
+export const areas: AreaGrupo[] = [
+  {
+    titulo: 'Tontura e sistema vestibular',
+    intro: 'Para quem sente o ambiente girar, a cabeça leve ou perde a firmeza ao mudar de posição.',
+    itens: [
+      { nome: 'Tontura, vertigem e desequilíbrio', texto: 'Sensação de rotação, instabilidade ou insegurança ao se movimentar.' },
+      { nome: 'Fisioterapia vestibular', texto: 'Manobras e exercícios para o sistema do equilíbrio voltar a trabalhar em conjunto.' },
+      { nome: 'VPPB', texto: 'Vertigem Posicional Paroxística Benigna: tontura breve ao deitar, levantar ou virar na cama.' },
+      { nome: 'Zumbido e condições vestibulares', texto: 'Avaliação de queixas relacionadas ao sistema vestibular.' },
+    ],
+  },
+  {
+    titulo: 'Marcha, mobilidade e envelhecimento',
+    intro: 'Para quem caminha com insegurança, já caiu ou quer preservar a autonomia com o passar dos anos.',
+    itens: [
+      { nome: 'Alterações da marcha e mobilidade', texto: 'Análise de como você caminha, gira, levanta e se desloca.' },
+      { nome: 'Prevenção e risco de quedas', texto: 'Identificação dos fatores que aumentam o risco e estratégias para reduzi-los.' },
+      { nome: 'Avaliação funcional do envelhecimento', texto: 'Equilíbrio, força, mobilidade e desempenho nas atividades do dia a dia.' },
+    ],
+  },
+  {
+    titulo: 'Recursos de estimulação',
+    intro: 'Recursos complementares, utilizados somente quando indicados pela avaliação e integrados ao plano terapêutico.',
+    itens: [
+      { nome: 'Estimulação elétrica vestibular', texto: 'Estimulação aplicada ao sistema vestibular como parte do tratamento.' },
+      { nome: 'Estimulação do nervo vago', texto: 'Técnica de estimulação utilizada de forma individualizada.' },
+    ],
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/* Tecnologia e avaliação                                              */
+/* Para adicionar a foto real de um equipamento: coloque o arquivo em  */
+/* public/images/tecnologia/ e preencha `foto`.                        */
+/* ------------------------------------------------------------------ */
+export type Tecnologia = {
+  id: string
+  nome: string
+  subtitulo: string
+  avalia: string
+  importancia: string
+  foto?: { src: string; alt: string }
+}
+export const tecnologias: Tecnologia[] = [
+  {
+    id: 'vhit',
+    nome: 'vHIT',
+    subtitulo: 'Video Head Impulse Test',
+    avalia:
+      'O reflexo que mantém o olhar estável durante movimentos rápidos da cabeça (reflexo vestíbulo-ocular), registrando a resposta de cada canal semicircular do labirinto.',
+    importancia:
+      'Ajuda a identificar qual lado e qual canal do sistema vestibular apresenta alteração, e permite comparar os resultados ao longo do acompanhamento.',
+  },
+  {
+    id: 'videooculografia',
+    nome: 'Videooculografia',
+    subtitulo: 'Videonistagmoscopia',
+    avalia:
+      'Os movimentos dos olhos, como o nistagmo, registrados em vídeo com câmeras infravermelhas durante testes posicionais e oculomotores.',
+    importancia:
+      'Torna visíveis e documentáveis sinais difíceis de observar a olho nu, apoiando a interpretação de quadros como a VPPB.',
+  },
+  {
+    id: 'posturografia',
+    nome: 'Posturografia',
+    subtitulo: 'Controle postural',
+    avalia: 'As oscilações do corpo em pé, em diferentes condições: olhos abertos ou fechados, superfície firme ou instável.',
+    importancia:
+      'Mostra como o equilíbrio está usando a visão, a sensibilidade dos pés e o sistema vestibular, o que orienta exercícios mais direcionados.',
+  },
+  {
+    id: 'avd',
+    nome: 'Acuidade Visual Dinâmica',
+    subtitulo: 'Computadorizada',
+    avalia: 'A nitidez da visão com a cabeça parada e com a cabeça em movimento, comparando os dois resultados.',
+    importancia:
+      'Mede o quanto uma alteração vestibular interfere em tarefas como ler uma placa ou reconhecer um rosto enquanto se caminha.',
+  },
+  {
+    id: 'baiobit',
+    nome: 'BAIOBIT',
+    subtitulo: 'Análise biomecânica por sensores inerciais',
+    avalia: 'Os movimentos do corpo durante a marcha, o equilíbrio e testes funcionais, registrados por um sensor vestível.',
+    importancia:
+      'Transforma tarefas do dia a dia em dados objetivos, como velocidade, simetria e oscilação, comparáveis entre uma avaliação e outra.',
+  },
+  {
+    id: 'balance-mat',
+    nome: 'Balance Mat',
+    subtitulo: 'Equilíbrio em superfície instável',
+    // [CONFIRMAR: descrição exata do Balance Mat utilizado no consultório]
+    avalia: 'O controle do equilíbrio em testes e exercícios realizados sobre uma superfície que desafia a estabilidade.',
+    importancia: 'Permite graduar o desafio de equilíbrio de forma controlada, tanto na avaliação quanto no treino.',
+  },
+  {
+    id: 'outros',
+    nome: 'Outros recursos',
+    subtitulo: 'Avaliação e tratamento',
+    avalia: 'O consultório conta com outros recursos de avaliação e tratamento, escolhidos conforme a necessidade de cada caso.',
+    importancia: '[CONFIRMAR: listar os demais recursos de avaliação e tratamento disponíveis no consultório]',
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/* Processo de atendimento                                             */
+/* ------------------------------------------------------------------ */
+export const processo = [
+  {
+    nome: 'Avaliação clínica',
+    texto: 'Conversa detalhada sobre sintomas, histórico e rotina, seguida do exame físico. É o ponto de partida de todo o raciocínio.',
+  },
+  {
+    nome: 'Avaliação funcional e instrumental',
+    texto: 'Testes de equilíbrio, marcha e movimento, com os recursos tecnológicos indicados para o seu caso.',
+  },
+  {
+    nome: 'Interpretação dos resultados',
+    texto: 'Os dados são analisados junto com o exame clínico e explicados para você em linguagem clara.',
+  },
+  {
+    nome: 'Plano terapêutico individualizado',
+    texto: 'Objetivos, exercícios e condutas definidos a partir dos achados da sua avaliação, não de um protocolo único.',
+  },
+  {
+    nome: 'Reavaliação e acompanhamento',
+    texto: 'Novas medidas ao longo do tratamento mostram a evolução e orientam os ajustes do plano.',
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/* Envelhecimento e prevenção de quedas                                */
+/* ------------------------------------------------------------------ */
+export const envelhecimento = [
+  { nome: 'Avaliação do equilíbrio', texto: 'Como o corpo se mantém estável parado e em movimento.' },
+  { nome: 'Análise da marcha', texto: 'Velocidade, ritmo e segurança ao caminhar e ao mudar de direção.' },
+  { nome: 'Mobilidade', texto: 'Levantar, sentar, girar e se deslocar com autonomia.' },
+  { nome: 'Força e desempenho funcional', texto: 'A capacidade física aplicada às tarefas da rotina.' },
+  { nome: 'Avaliação do risco de quedas', texto: 'Os fatores de risco de cada pessoa, para orientar a prevenção.' },
+]
+
+/* ------------------------------------------------------------------ */
+/* Atuação acadêmica e produção científica                             */
+/* ------------------------------------------------------------------ */
+export const academico = {
+  atividades: ['Formação de fisioterapeutas', 'Cursos de pós-graduação', 'Workshops', 'Palestras', 'Eventos científicos'],
+  // [CONFIRMAR: instituições e cursos em que leciona/coordena — não preencher sem dados do cliente]
+  instituicoes: '',
+  /** Fotos reais de aulas, palestras e eventos. Coloque em public/images/academico/ e preencha. */
+  fotos: [] as { src: string; alt: string; legenda: string }[],
+}
+
+export type Publicacao = {
+  tipo: 'Artigo' | 'Revisão sistemática' | 'Evento científico' | 'Atividade acadêmica'
+  titulo: string
+  veiculo: string // revista, congresso ou evento
+  ano: string
+  autores?: string
+  link?: string // DOI ou URL
+  capa?: { src: string; alt: string }
+}
+/** Preencher SOMENTE com dados reais enviados pelo cliente. Lista vazia = seção mostra espaços reservados. */
+export const publicacoes: Publicacao[] = []
+export const tiposPublicacao = ['Publicações', 'Revisões sistemáticas', 'Eventos científicos', 'Atividades acadêmicas']
