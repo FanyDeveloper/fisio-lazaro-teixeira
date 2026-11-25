@@ -26,7 +26,7 @@ export default function Hero() {
   )
 
   const titulo = (id?: string) => (
-    <h1 id={id} data-h="txt" className="font-caps font-medium text-white [text-wrap:balance]">
+    <h1 id={id} data-h="txt" className="font-caps font-normal text-white [text-wrap:balance]">
       <span className="sr-only">Lázaro Juliano Teixeira, fisioterapeuta neurofuncional vestibular: </span>
       “Se for para fazer, <br />
       faça o melhor que puder.”
@@ -86,7 +86,7 @@ export default function Hero() {
             <p data-h="txt" className="font-caps text-[clamp(0.78rem,0.85vw,1rem)] tracking-[0.04em] text-white/80">
               Fisioterapia Neurofuncional Vestibular · Balneário Camboriú
             </p>
-            <div className="mt-[clamp(0.6rem,1.2vw,1.2rem)] text-[clamp(2.9rem,4.8vw,6.2rem)] leading-[1.12]">{titulo('hero-titulo')}</div>
+            <div className="mt-[clamp(0.6rem,1.2vw,1.2rem)] text-[clamp(2.4rem,4.05vw,5.3rem)] leading-[1.16]">{titulo('hero-titulo')}</div>
             <div className="mt-[clamp(0.8rem,1.4vw,1.6rem)] text-[clamp(1.2rem,1.85vw,2.05rem)] leading-[1.32]">{subtitulo}</div>
           </div>
           <div>
@@ -118,7 +118,7 @@ export default function Hero() {
             <br className="sm:hidden" />
             Balneário Camboriú
           </p>
-          <div className="mt-3 text-[clamp(1.65rem,7.4vw,3.2rem)] leading-[1.14]">{titulo()}</div>
+          <div className="mt-3 text-[clamp(1.45rem,6.3vw,2.8rem)] leading-[1.18]">{titulo()}</div>
           <div className="mt-4 max-w-xl text-[1.22rem] leading-[1.4] sm:text-[1.4rem]">{subtitulo}</div>
           <div className="mt-9 border-l border-white/30 pl-4 text-[1.3rem] leading-tight [&_p+p]:mt-1 [&_p+p]:text-[1.05rem]">{assinatura}</div>
           {botoes('mt-8 flex-col sm:flex-row [&>a]:w-full sm:[&>a]:w-auto')}

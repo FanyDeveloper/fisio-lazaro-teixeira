@@ -17,12 +17,13 @@
   --color-accent: #8dbbe0;
   --color-accent-ink: #1f5f99;
 
-  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  /* Rótulos técnicos e numeração: Cinzel (capitulares romanas) */
+  --font-mono: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
   /* Hero e menu: serifada editorial (Cormorant) */
   --font-editorial: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
-  --font-caps: 'Cormorant SC', 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-caps: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -44,7 +45,10 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
-    line-height: 1.65;
+    font-weight: 500;
+    line-height: 1.6;
+    /* A Cormorant tem olho pequeno: no texto corrido, ajusta a altura-x para manter a legibilidade */
+    font-size-adjust: 0.47;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
     text-rendering: optimizeLegibility;
@@ -54,13 +58,21 @@
   h3 {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    letter-spacing: -0.015em;
-    line-height: 1.06;
-    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.04;
+    font-weight: 500;
+    font-size-adjust: none;
     text-wrap: balance;
   }
   p {
     text-wrap: pretty;
+  }
+  /* Títulos, números grandes, rótulos e a Hero já foram dimensionados para a fonte sem ajuste */
+  .font-display,
+  .font-editorial,
+  .font-caps,
+  .font-mono {
+    font-size-adjust: none;
   }
   ::selection {
     background: var(--color-navy);
@@ -88,12 +100,13 @@
   .photo-grade {
     filter: saturate(0.92) contrast(1.02);
   }
-  /* Rótulo técnico: numeração e legendas em mono, usado com moderação */
+  /* Rótulo técnico: numeração e legendas em Cinzel, usado com moderação */
   .label-tech {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    font-size-adjust: none;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   /* Grade técnica muito leve, para fundos de seções científicas */
