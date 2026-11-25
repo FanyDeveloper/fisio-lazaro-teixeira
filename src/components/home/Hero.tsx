@@ -81,7 +81,7 @@ export default function Hero() {
         />
         <div aria-hidden className="hero-scrim absolute inset-0" />
 
-        <div className="relative z-10 flex h-full max-w-[66%] flex-col justify-between px-[var(--hero-pad)] pb-[12svh] pt-[27svh]">
+        <div className="relative z-10 flex h-full max-w-[66%] flex-col justify-between px-[var(--hero-pad)] pb-[12svh] pt-[31svh]">
           <div>
             <p data-h="txt" className="font-caps text-[clamp(0.78rem,0.85vw,1rem)] tracking-[0.04em] text-white/80">
               Fisioterapia Neurofuncional Vestibular · Balneário Camboriú
