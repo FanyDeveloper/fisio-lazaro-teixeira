@@ -2,15 +2,14 @@ import { useRef } from 'react'
 import { gsap, useGSAP } from '../../lib/gsap'
 import { empresa } from '../../data/empresa'
 import { waLink } from '../../lib/whatsapp'
-import SplitText from '../reactbits/SplitText'
-import Magnet from '../reactbits/Magnet'
-import ButtonPrimary from '../ui/ButtonPrimary'
-import ButtonSecondary from '../ui/ButtonSecondary'
-import RevealImage from '../RevealImage'
-import SectionLabel from '../SectionLabel'
-import { WaIcon } from '../Header'
+import SmartLink from '../SmartLink'
 
-/** 01 — Abertura: lema, posicionamento, quem é e como agendar. */
+/**
+ * 01 — Abertura (Hero).
+ * Desktop: 100svh, conteúdo à esquerda (~55%) e a fotografia real à direita, sobre fundo preto/azul-marinho.
+ * Celular: composição vertical própria (foto no topo fundindo no escuro, texto abaixo).
+ * O logotipo fica no cabeçalho fixo, que ocupa o canto superior esquerdo da Hero.
+ */
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   useGSAP(
@@ -18,108 +17,112 @@ export default function Hero() {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap
-          .timeline({ delay: 0.6 })
-          .from('[data-h="sub"]', { y: 20, opacity: 0, duration: 0.7 })
-          .from('[data-h="cta"]', { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, '-=0.45')
-          .from('[data-h="fact"]', { y: 12, opacity: 0, duration: 0.6, stagger: 0.06 }, '-=0.4')
+          .timeline({ defaults: { ease: 'power3.out' } })
+          .from('[data-h="foto"]', { opacity: 0, scale: 1.04, duration: 1.6, ease: 'power2.out' })
+          .from('[data-h="txt"]', { opacity: 0, y: 22, duration: 0.9, stagger: 0.1 }, 0.25)
       })
     },
     { scope: ref },
   )
 
-  const fatos = [
-    { valor: `Desde ${empresa.atuacaoDesde}`, texto: 'Atuação clínica' },
-    { valor: 'Mestre', texto: 'Medicina Interna e Terapêutica · UNIFESP' },
-    { valor: 'Especialista', texto: 'Fisioterapia Neurofuncional Vestibular' },
-    { valor: '4,9', texto: `Média no Google · ${empresa.google.avaliacoes} avaliações` },
-  ]
+  const titulo = (id?: string) => (
+    <h1 id={id} data-h="txt" className="font-caps font-medium text-white [text-wrap:balance]">
+      <span className="sr-only">Lázaro Juliano Teixeira, fisioterapeuta neurofuncional vestibular: </span>
+      “Se for para fazer, <br />
+      faça o melhor que puder.”
+    </h1>
+  )
+  const subtitulo = (
+    <p data-h="txt" className="font-editorial text-white/85">
+      Fisioterapia especializada, baseada em evidências e tecnologia, <br className="hidden lg:block" />
+      para avaliar, tratar e acompanhar você com precisão.
+    </p>
+  )
+  const assinatura = (
+    <div data-h="txt" className="font-editorial text-white">
+      <p className="font-semibold">Lázaro Juliano Teixeira</p>
+      <p className="text-white/80">{empresa.especialidade}</p>
+    </div>
+  )
+  const botoes = (cls = '') => (
+    <div data-h="txt" className={`flex gap-4 font-editorial ${cls}`}>
+      <a
+        href={waLink()}
+        target="_blank"
+        rel="noopener"
+        className="hero-btn-primary inline-flex min-h-[48px] items-center justify-center rounded-full px-8 text-[clamp(1.05rem,1.2vw,1.25rem)] font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+      >
+        Agende sua avaliação
+      </a>
+      <SmartLink
+        to="/#sobre"
+        className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/70 px-7 text-[clamp(1.05rem,1.2vw,1.25rem)] font-medium text-white transition-colors duration-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+      >
+        Minha trajetória
+      </SmartLink>
+    </div>
+  )
 
   return (
-    <section ref={ref} id="inicio" aria-labelledby="hero-nome" className="relative overflow-hidden pt-28 md:pt-36">
-      {/* Grade técnica discreta, só no canto da foto */}
-      <div
-        aria-hidden
-        className="tech-grid pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] text-navy md:block"
-        style={{ maskImage: 'radial-gradient(ellipse at 70% 40%, black 10%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at 70% 40%, black 10%, transparent 70%)' }}
-      />
-      <div className="container-x relative grid gap-12 pb-14 md:grid-cols-12 md:gap-8 md:pb-20">
-        <div className="flex flex-col justify-center md:col-span-7 md:pr-4">
-          <SectionLabel className="mb-12 md:mb-14">Fisioterapia Neurofuncional Vestibular · Balneário Camboriú</SectionLabel>
+    <section ref={ref} id="inicio" aria-labelledby="hero-titulo" className="hero-dark relative isolate overflow-hidden">
+      {/* ---------------- Desktop ---------------- */}
+      <div className="relative hidden h-[100svh] min-h-[640px] lg:block">
+        <div aria-hidden className="hero-glow absolute inset-0" />
+        <img
+          data-h="foto"
+          src="/images/hero-lazaro-1920.webp"
+          srcSet="/images/hero-lazaro-1280.webp 1280w, /images/hero-lazaro-1920.webp 1920w"
+          sizes="100vw"
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          alt="Lázaro Juliano Teixeira sorrindo, de braços cruzados, com camisa e paletó escuros, sobre fundo azul"
+          className="hero-photo"
+        />
+        <div aria-hidden className="hero-scrim absolute inset-0" />
 
-          <div className="relative">
-            <span aria-hidden className="absolute -left-1 -top-10 font-display text-[6rem] leading-none text-accent md:-left-3 md:-top-14 md:text-[8rem]">
-              “
-            </span>
-            <SplitText
-              as="p"
-              trigger="load"
-              delay={0.1}
-              stagger={0.05}
-              text="Se for para fazer, faça o *melhor* que puder."
-              className="relative font-display text-[2.7rem] leading-[1.02] text-navy sm:text-[3.5rem] lg:text-[4.5rem]"
-            />
+        <div className="relative z-10 flex h-full max-w-[60%] flex-col justify-between px-[var(--hero-pad)] pb-[12svh] pt-[27svh]">
+          <div>
+            <p data-h="txt" className="font-caps text-[clamp(0.78rem,0.85vw,1rem)] tracking-[0.04em] text-white/80">
+              Fisioterapia Neurofuncional Vestibular · Balneário Camboriú
+            </p>
+            <div className="mt-[clamp(0.6rem,1.2vw,1.2rem)] text-[clamp(2.7rem,4.3vw,5.3rem)] leading-[1.14]">{titulo('hero-titulo')}</div>
+            <div className="mt-[clamp(0.8rem,1.4vw,1.6rem)] text-[clamp(1.2rem,1.85vw,2.05rem)] leading-[1.32]">{subtitulo}</div>
           </div>
-
-          <p data-h="sub" className="mt-8 max-w-xl text-[1.12rem] leading-relaxed text-mist md:text-[1.22rem]">
-            Fisioterapia especializada, baseada em evidências e tecnologia, para avaliar, tratar e acompanhar você com precisão.
-          </p>
-
-          <div data-h="sub" className="mt-8 border-l-2 border-navy pl-5">
-            <h1 id="hero-nome" className="font-display text-[1.65rem] leading-tight text-ink md:text-[1.9rem]">
-              Lázaro Juliano Teixeira
-            </h1>
-            <p className="mt-1 text-[0.98rem] font-medium text-mist">{empresa.especialidade}</p>
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
-            <div data-h="cta">
-              <Magnet>
-                <ButtonPrimary href={waLink()} icon={<WaIcon size={18} />}>
-                  Agende sua avaliação
-                </ButtonPrimary>
-              </Magnet>
+          <div>
+            <div className="text-[clamp(1.3rem,1.9vw,2.05rem)] leading-tight [&_p+p]:mt-1 [&_p+p]:text-[clamp(1rem,1.3vw,1.4rem)]">
+              {assinatura}
             </div>
-            <div data-h="cta">
-              <ButtonSecondary to="/#sobre">Conheça minha trajetória</ButtonSecondary>
-            </div>
+            {botoes('mt-[clamp(1.4rem,3svh,2.4rem)]')}
           </div>
-        </div>
-
-        <div className="relative md:col-span-5">
-          <RevealImage
-            priority
-            src="/images/lazaro-retrato-1200.webp"
-            srcSet="/images/lazaro-retrato-640.webp 640w, /images/lazaro-retrato-1200.webp 1200w"
-            sizes="(min-width: 768px) 40vw, 92vw"
-            width={1200}
-            height={1200}
-            alt="Lázaro Juliano Teixeira, fisioterapeuta, sorrindo de braços cruzados, com barba grisalha e jaleco escuro"
-            className="aspect-[4/5] rounded-[22px] bg-sand"
-            imgClassName="object-[50%_20%]"
-          />
-          {/* Marcas de enquadramento: referência visual a um campo de medição */}
-          <span aria-hidden className="pointer-events-none absolute -left-3 -top-3 h-8 w-8 border-l border-t border-navy/40" />
-          <span aria-hidden className="pointer-events-none absolute -bottom-3 -right-3 h-8 w-8 border-b border-r border-navy/40" />
         </div>
       </div>
 
-      {/* Fatos da trajetória (estáticos, sem animação contínua) */}
-      <div className="border-y border-line bg-bone">
-        <dl className="container-x grid grid-cols-2 md:grid-cols-4">
-          {fatos.map((f, i) => (
-            <div
-              data-h="fact"
-              key={f.texto}
-              className={`py-6 pr-4 md:py-8 md:pl-6 ${i > 0 ? 'md:border-l md:border-line' : 'md:pl-0'} ${i % 2 ? 'border-l border-line pl-4 md:pl-6' : ''} ${i > 1 ? 'border-t border-line md:border-t-0' : ''}`}
-            >
-              <dt className="sr-only">{f.texto}</dt>
-              <dd>
-                <span className="block font-display text-[1.6rem] leading-none text-navy md:text-[2rem]">{f.valor}</span>
-                <span className="mt-2 block text-[0.85rem] leading-snug text-mist">{f.texto}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+      {/* ---------------- Celular e tablet ---------------- */}
+      <div className="relative pt-[84px] lg:hidden">
+        <div className="relative h-[min(64svh,560px)] min-h-[380px] w-full overflow-hidden">
+          <div aria-hidden className="hero-glow absolute inset-0" />
+          <img
+            data-h="foto"
+            src="/images/hero-lazaro-mobile-800.webp"
+            width={800}
+            height={771}
+            alt="Lázaro Juliano Teixeira sorrindo, de braços cruzados, com camisa e paletó escuros, sobre fundo azul"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_0%]"
+          />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-[var(--hero-bg)]" />
+        </div>
+        <div className="relative z-10 -mt-12 px-[var(--hero-pad)] pb-16">
+          <p data-h="txt" className="font-caps text-[0.82rem] tracking-[0.04em] text-white/80">
+            Fisioterapia Neurofuncional Vestibular<span className="hidden sm:inline"> · </span>
+            <br className="sm:hidden" />
+            Balneário Camboriú
+          </p>
+          <div className="mt-3 text-[clamp(1.65rem,7.4vw,3.2rem)] leading-[1.14]">{titulo()}</div>
+          <div className="mt-4 max-w-xl text-[1.22rem] leading-[1.4] sm:text-[1.4rem]">{subtitulo}</div>
+          <div className="mt-9 border-l border-white/30 pl-4 text-[1.3rem] leading-tight [&_p+p]:mt-1 [&_p+p]:text-[1.05rem]">{assinatura}</div>
+          {botoes('mt-8 flex-col sm:flex-row [&>a]:w-full sm:[&>a]:w-auto')}
+        </div>
       </div>
     </section>
   )

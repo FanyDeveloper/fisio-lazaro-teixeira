@@ -64,9 +64,9 @@ export default function StaggeredMenu({ open, onClose }: Props) {
       className="fixed inset-0 z-[45] xl:hidden"
       data-lenis-prevent
     >
-      <div data-layer className="absolute inset-0 bg-accent" />
-      <div data-layer className="absolute inset-0 bg-navy-deep" />
-      <div data-layer className="absolute inset-0 flex flex-col overflow-y-auto bg-navy px-6 pb-8 pt-28 text-bone">
+      <div data-layer className="absolute inset-0 bg-[#1b2a8a]" />
+      <div data-layer className="absolute inset-0 bg-[#0a1236]" />
+      <div data-layer className="hero-glow-menu absolute inset-0 flex flex-col overflow-y-auto bg-[#010207] px-[clamp(1.25rem,4vw,4.5rem)] pb-8 pt-32 text-bone">
         <nav aria-label="Menu principal" className="flex-1 pb-8">
           <ul className="space-y-0.5">
             {navLinks.map((l) => (
@@ -76,7 +76,7 @@ export default function StaggeredMenu({ open, onClose }: Props) {
                   onClick={onClose}
                   tabIndex={open ? 0 : -1}
                   aria-current={atual(l.to) ? 'location' : undefined}
-                  className={`block py-1 font-display text-[1.9rem] leading-tight sm:text-[2.3rem] ${atual(l.to) ? 'italic text-accent' : 'text-bone'}`}
+                  className={`block py-1 font-editorial text-[2rem] font-medium leading-tight sm:text-[2.4rem] ${atual(l.to) ? 'italic text-white' : 'text-white/75'}`}
                 >
                   {l.label}
                 </SmartLink>
@@ -84,8 +84,8 @@ export default function StaggeredMenu({ open, onClose }: Props) {
             ))}
           </ul>
         </nav>
-        <div className="space-y-4 border-t border-bone/15 pt-6 text-[0.95rem]">
-          <a data-foot href={waLink()} tabIndex={open ? 0 : -1} className="flex w-full items-center justify-center rounded-full bg-accent px-6 py-4 font-semibold text-navy-deep">
+        <div className="space-y-4 border-t border-white/15 pt-6 font-editorial text-[1.1rem]">
+          <a data-foot href={waLink()} tabIndex={open ? 0 : -1} className="hero-btn-primary flex w-full items-center justify-center rounded-full px-6 py-4 text-[1.2rem] font-medium text-white">
             Agende sua avaliação
           </a>
           <a data-foot href={telLink} tabIndex={open ? 0 : -1} className="flex items-center gap-3 text-bone/80">
