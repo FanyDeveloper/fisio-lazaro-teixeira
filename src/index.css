@@ -185,23 +185,30 @@ html {
   --hero-pad: clamp(1.25rem, 4vw, 4.5rem);
   background-color: var(--hero-bg);
 }
-/* Desktop: a foto ocupa a seção inteira; o lado esquerdo dela já é quase preto e funde com o fundo */
+/*
+  Desktop: enquadramento da referência em qualquer proporção de tela.
+  A foto (1920×1080) sempre preenche a altura da Hero; a cabeça fica a ~15% do topo e o corpo
+  ultrapassa a borda inferior. Em telas mais estreitas que 16:9, a imagem desliza para a esquerda
+  só o necessário para o centro do Lázaro (68,5% da foto) ficar em ~70% da largura da tela.
+*/
 .hero-photo {
+  --h: max(100svh, 640px);
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  height: var(--h);
+  width: max(100%, calc(var(--h) * 1.7778));
+  left: min(0px, calc(70% - var(--h) * 1.2178));
+  max-width: none;
   object-fit: cover;
-  object-position: 100% 16%;
+  object-position: 50% 0;
 }
-/* Telas mais "quadradas": a foto é ancorada embaixo, sem cortar a lateral (o rosto não invade o texto) */
-@media (min-width: 1024px) and (max-aspect-ratio: 8/5) {
-  .hero-photo {
-    top: auto;
-    bottom: 0;
-    height: auto;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+/* Telas de desktop quase quadradas ou em pé: usa a composição vertical, para a foto não cobrir o texto */
+@media (min-width: 1024px) and (max-aspect-ratio: 23/20) {
+  .hero-desk {
+    display: none !important;
+  }
+  .hero-mob {
+    display: block !important;
   }
 }
 /* Luz azul de apoio atrás da foto (prolonga o fundo azul quando sobra espaço acima da imagem) */

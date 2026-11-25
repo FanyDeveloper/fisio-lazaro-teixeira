@@ -66,7 +66,7 @@ export default function Hero() {
   return (
     <section ref={ref} id="inicio" aria-labelledby="hero-titulo" className="hero-dark relative isolate overflow-hidden">
       {/* ---------------- Desktop ---------------- */}
-      <div className="relative hidden h-[100svh] min-h-[640px] lg:block">
+      <div className="hero-desk relative hidden h-[100svh] min-h-[640px] lg:block">
         <div aria-hidden className="hero-glow absolute inset-0" />
         <img
           data-h="foto"
@@ -99,8 +99,8 @@ export default function Hero() {
       </div>
 
       {/* ---------------- Celular e tablet ---------------- */}
-      <div className="relative pt-[84px] lg:hidden">
-        <div className="relative h-[min(64svh,560px)] min-h-[380px] w-full overflow-hidden">
+      <div className="hero-mob relative pt-[84px] lg:hidden">
+        <div className="relative aspect-[4/5] max-h-[72svh] min-h-[380px] w-full overflow-hidden">
           <div aria-hidden className="hero-glow absolute inset-0" />
           <img
             data-h="foto"

@@ -169,7 +169,7 @@ export default function Header() {
             solid ? 'border-white/10 bg-[#02040e]/85 py-3 backdrop-blur-xl backdrop-saturate-150 lg:py-3.5' : 'border-transparent bg-transparent py-5 lg:py-7'
           }`}
         >
-          <div className="mx-auto flex max-w-[1920px] items-center justify-between gap-6 px-[clamp(1.25rem,4vw,4.5rem)]">
+          <div className="flex items-center justify-between gap-6 px-[clamp(1.25rem,4vw,4.5rem)]">
             <Link to="/" aria-label={`${empresa.nomeCurto ?? 'Lázaro Teixeira'} — página inicial`} className="shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
               <img
                 src="/images/logo-lazaro.svg"
