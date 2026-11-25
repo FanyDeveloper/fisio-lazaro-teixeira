@@ -81,12 +81,12 @@ export default function Hero() {
         />
         <div aria-hidden className="hero-scrim absolute inset-0" />
 
-        <div className="relative z-10 flex h-full max-w-[60%] flex-col justify-between px-[var(--hero-pad)] pb-[12svh] pt-[27svh]">
+        <div className="relative z-10 flex h-full max-w-[66%] flex-col justify-between px-[var(--hero-pad)] pb-[12svh] pt-[27svh]">
           <div>
             <p data-h="txt" className="font-caps text-[clamp(0.78rem,0.85vw,1rem)] tracking-[0.04em] text-white/80">
               Fisioterapia Neurofuncional Vestibular · Balneário Camboriú
             </p>
-            <div className="mt-[clamp(0.6rem,1.2vw,1.2rem)] text-[clamp(2.7rem,4.3vw,5.3rem)] leading-[1.14]">{titulo('hero-titulo')}</div>
+            <div className="mt-[clamp(0.6rem,1.2vw,1.2rem)] text-[clamp(2.9rem,4.8vw,6.2rem)] leading-[1.12]">{titulo('hero-titulo')}</div>
             <div className="mt-[clamp(0.8rem,1.4vw,1.6rem)] text-[clamp(1.2rem,1.85vw,2.05rem)] leading-[1.32]">{subtitulo}</div>
           </div>
           <div>

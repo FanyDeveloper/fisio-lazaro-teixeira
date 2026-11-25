@@ -187,20 +187,25 @@ html {
 }
 /*
   Desktop: enquadramento da referência em qualquer proporção de tela.
-  A foto (1920×1080) sempre preenche a altura da Hero; a cabeça fica a ~15% do topo e o corpo
-  ultrapassa a borda inferior. Em telas mais estreitas que 16:9, a imagem desliza para a esquerda
-  só o necessário para o centro do Lázaro (68,5% da foto) ficar em ~70% da largura da tela.
+  A foto (1920×1080) ocupa 88% da altura da Hero, encostada embaixo (o corpo passa da borda inferior).
+  O centro do Lázaro (68,5% da largura da foto) fica em ~74% da tela; se isso deixar sobra à direita,
+  a foto encosta na borda direita. As bordas de cima e da esquerda se dissolvem no fundo.
 */
 .hero-photo {
   --h: max(100svh, 640px);
+  --wi: calc(var(--h) * 0.88 * 1.7778);
   position: absolute;
-  top: 0;
-  height: var(--h);
-  width: max(100%, calc(var(--h) * 1.7778));
-  left: min(0px, calc(70% - var(--h) * 1.2178));
+  top: calc(var(--h) * 0.12);
+  height: calc(var(--h) * 0.88);
+  width: var(--wi);
+  left: max(calc(100% - var(--wi)), calc(74% - var(--wi) * 0.685));
   max-width: none;
   object-fit: cover;
   object-position: 50% 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%), linear-gradient(to right, transparent 0%, #000 12%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%), linear-gradient(to right, transparent 0%, #000 12%);
+  mask-composite: intersect;
 }
 /* Telas de desktop quase quadradas ou em pé: usa a composição vertical, para a foto não cobrir o texto */
 @media (min-width: 1024px) and (max-aspect-ratio: 23/20) {
